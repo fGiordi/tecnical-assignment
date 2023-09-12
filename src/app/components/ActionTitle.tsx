@@ -1,6 +1,5 @@
 'use client';
 
-import Fab from '@/app/components/SVGS/FAB.svg';
 import { useRouter } from 'next/navigation';
 import BackBtn from '@/app/components/SVGS/BackBtn.svg';
 import Image from 'next/image';
@@ -28,7 +27,7 @@ export default function ActionTitle({ action, title }: IActionTitle) {
       <h2 className="font-medium leading-[22px] tracking-[-2%] text-center">
         {title}
       </h2>
-      <div></div>
+      <div />
     </div>
   );
 }
