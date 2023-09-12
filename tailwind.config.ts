@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import colors from 'tailwindcss/colors';
 
 const config: Config = {
   content: [
@@ -14,6 +15,11 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
       }
+    },
+    colors: {
+      'specno-gray-text': '#484954',
+      'specno-light-bg': '#f8fafc',
+      ...colors
     }
   },
   plugins: []
