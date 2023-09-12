@@ -53,6 +53,7 @@ const config: Config = {
         normal: '#8338EC'
       },
       selected: '#475569',
+      'light-gray-text': '#F8FAFC',
       ...colors
     }
   },

@@ -1,4 +1,5 @@
 'use client';
+
 import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
 import Input from '@/app/components/Form/Input';
@@ -29,7 +30,7 @@ export default function NewOffice() {
           Office Color
         </h2>
 
-        <div className="grid grid-cols-6 gap-4  mb-10">
+        <div className="grid grid-cols-6 gap-9  mb-9">
           {officeColors.map((color, index) => {
             return (
               <OfficeColor
@@ -42,7 +43,7 @@ export default function NewOffice() {
           })}
         </div>
 
-        <div className="flex items-center justify-center mt-9">
+        <div className="flex items-center justify-center ">
           <EntityActionBtn
             name="Add Office"
             action={submitOffice}
