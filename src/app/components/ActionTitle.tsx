@@ -20,7 +20,7 @@ export default function ActionTitle({ action, title }: IActionTitle) {
   };
 
   return (
-    <div className="flex justify-between items-center px-10">
+    <div className="flex justify-between items-center ">
       <button onClick={goToHome}>
         <Image src={BackBtn.src} width={20} height={20} alt="Back btn" />
       </button>

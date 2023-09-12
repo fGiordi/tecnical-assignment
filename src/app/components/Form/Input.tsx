@@ -17,8 +17,8 @@ export default function Input({
       type={type}
       placeholder={placeholder}
       value={value}
-      required
-      className="min-w-[300px] h-[48] rounded-[8px] px-4 py-3 bg-white text-black"
+      required={required}
+      className="w-full h-[48] rounded-[8px] px-4 py-3 bg-white text-black"
     />
   );
 }
