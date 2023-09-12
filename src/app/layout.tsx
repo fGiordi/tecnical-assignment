@@ -1,4 +1,4 @@
-import Header from '@/Layouts/Header';
+import Header from '@/app/Layouts/Header';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
