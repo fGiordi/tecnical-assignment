@@ -5,6 +5,7 @@ interface IInput {
   value?: string;
   required?: boolean;
 }
+
 export default function Input({
   type,
   placeholder,
@@ -18,7 +19,7 @@ export default function Input({
       placeholder={placeholder}
       value={value}
       required={required}
-      className="w-full h-[48] rounded-[8px] px-4 py-3 bg-white text-black"
+      className={`w-full h-[48] rounded-[8px] px-4 py-3 bg-white text-black ${styles}`}
     />
   );
 }
