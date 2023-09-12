@@ -1,6 +1,7 @@
 interface OfficeColor {
   name: string;
 }
+// Colors with Styles Already
 export const officeColors: OfficeColor[] = [
   {
     name: 'bg-office-yellow-normal'
@@ -16,7 +17,7 @@ export const officeColors: OfficeColor[] = [
   },
   { name: 'bg-office-indigo-normal' },
   {
-    name: 'bg-office-purple-normal'
+    name: 'bg-office-indigo'
   },
   {
     name: 'bg-office-pink-normal'
