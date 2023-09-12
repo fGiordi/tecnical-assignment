@@ -1,7 +1,7 @@
 import Image from 'next/image';
 const Header = () => {
   return (
-    <div className="flex justify-between w-full max-w-[1000px] mx-auto py-4">
+    <div className="flex justify-between w-full max-w-[1000px] mx-auto py-4 px-10">
       <div className="flex items-center justify-center gap-3">
         <h2>19:00</h2>
         <Image

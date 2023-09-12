@@ -4,8 +4,6 @@ import Image from 'next/image';
 import Fab from '@/app/components/SVGS/FAB.svg';
 import { useRouter } from 'next/navigation';
 
-// create enum types
-
 type Pages = 'new-office';
 
 interface IActionBtn {
