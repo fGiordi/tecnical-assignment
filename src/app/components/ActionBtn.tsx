@@ -18,7 +18,7 @@ export default function ActionBtn({ page }: IActionBtn) {
   };
 
   return (
-    <div className="\">
+    <div className="flex items-end justify-end">
       <button onClick={goToPage}>
         <Image src={Fab.src} width={50} height={50} alt="Action Page" />
       </button>
