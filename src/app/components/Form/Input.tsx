@@ -1,8 +1,8 @@
 interface IInput {
-  type: string;
+  type: string | number;
   placeholder: string;
   styles?: string;
-  value?: string;
+  value?: string | number;
   required?: boolean;
   onChange?: (value: string) => void;
 }

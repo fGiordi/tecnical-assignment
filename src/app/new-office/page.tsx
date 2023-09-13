@@ -14,6 +14,7 @@ export default function NewOffice() {
   const [physicalAddress, setPhysicalAddress] = useState('');
   const [email, setEmail] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [maximumCapacity, setMaximumCapacity] = useState(0);
 
   const submitOffice = () => {
     // TODO to submit new office form
@@ -51,7 +52,12 @@ export default function NewOffice() {
             value={phoneNumber}
             onChange={(newValue) => setPhoneNumber(newValue)}
           />
-          <Input type="text" placeholder="Maximum Capacity" />
+          <Input
+            type="number"
+            placeholder="Maximum Capacity"
+            value={maximumCapacity}
+            onChange={(newValue) => setMaximumCapacity(Number(newValue))}
+          />
         </div>
         <h2 className="py-5 text-left font-semibold text-[28px] leading-[29px] tracking-[-2px] mb-6">
           Office Color
