@@ -1,6 +1,10 @@
 import ActionFabBtn from '@/app/components/ActionFabBtn';
+import { useOfficeStore } from '@/store/offices.store';
 
 export default function Home() {
+  const { offices } = useOfficeStore();
+
+  console.log('offices in home page', offices);
   return (
     <main className="flex flex-col justify-between h-[98vh] w-full  py-14">
       {/* Display all Offices here on landing page */}
