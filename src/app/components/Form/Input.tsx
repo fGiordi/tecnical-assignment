@@ -4,6 +4,7 @@ interface IInput {
   styles?: string;
   value?: string;
   required?: boolean;
+  onChange?: (value: string) => void;
 }
 
 export default function Input({
@@ -11,14 +12,21 @@ export default function Input({
   placeholder,
   styles,
   value,
-  required
+  required,
+  onChange
 }: IInput) {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(event.target.value);
+    }
+  };
   return (
     <input
       type={type}
       placeholder={placeholder}
       value={value}
       required={required}
+      onChange={handleChange}
       className={`w-full h-[48] rounded-[8px] px-4 py-3 bg-white text-black ${styles}`}
     />
   );
