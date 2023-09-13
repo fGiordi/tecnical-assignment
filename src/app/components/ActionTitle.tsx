@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import BackBtn from '@/app/components/SVGS/BackBtn.svg';
 import Image from 'next/image';
 
-type Title = 'New Office';
+type Title = 'New Office' | 'Edit Office';
 
 interface IActionTitle {
   action?: () => void;

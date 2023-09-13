@@ -1,4 +1,4 @@
-import ActionBtn from '@/app/components/ActionBtn';
+import ActionFabBtn from '@/app/components/ActionFabBtn';
 
 export default function Home() {
   return (
@@ -10,7 +10,7 @@ export default function Home() {
         </h2>
         {/* display all the office spaces here */}
       </div>
-      <ActionBtn page="new-office" />
+      <ActionFabBtn page="new-office" />
     </main>
   );
 }

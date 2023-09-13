@@ -1,4 +1,4 @@
-export interface ActionBtn {
+export interface IActionBtn {
   name: string;
   action: () => void;
   fill: boolean;

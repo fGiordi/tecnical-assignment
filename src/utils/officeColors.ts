@@ -2,7 +2,7 @@ interface OfficeColor {
   name: string;
 }
 // Colors with Styles Already
-export const officeColors: OfficeColor[] = [
+export const OfficeColors: OfficeColor[] = [
   {
     name: 'bg-office-yellow-normal'
   },

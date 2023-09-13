@@ -1,5 +1,5 @@
-import { ActionBtn } from '@/types/actionbtn';
-import EntityActionBtn from '@/app/components/form/EntityActionBtn';
+import { IActionBtn } from '@/types/actionbtn';
+import ActionBtn from '@/app/components/form/ActionBtn';
 
 interface IDeleteOfficeBtns {
   onClose: () => void;
@@ -7,10 +7,8 @@ interface IDeleteOfficeBtns {
 
 export default function DeleteOfficeBtns({ onClose }: IDeleteOfficeBtns) {
   // TODO: store state of buttons with actions
-
   // fetch actions from store -> db
-
-  const deleteBtnsInfo: ActionBtn[] = [
+  const deleteBtnsInfo: IActionBtn[] = [
     {
       name: 'Delete Office',
       // TODO: to come from DB
@@ -29,7 +27,7 @@ export default function DeleteOfficeBtns({ onClose }: IDeleteOfficeBtns) {
   return (
     <div className="flex flex-col items-center gap-[12px] justify-center mb-[78px]">
       {deleteBtnsInfo.map((item, index) => {
-        return <EntityActionBtn key={index} {...item} />;
+        return <ActionBtn key={index} {...item} />;
       })}
     </div>
   );

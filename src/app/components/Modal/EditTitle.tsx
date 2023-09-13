@@ -13,14 +13,14 @@ export default function EditTitle({ title, onClose }: EditTitle) {
 
   return (
     <section className="flex items-center justify-between">
-      <div className="flex">
+      <div className="flex items-center gap-3">
         {/* TODO: make this into component? */}
         <button onClick={goToHome}>
           <Image src={BackBtn.src} width={30} height={30} alt="Close" />
         </button>
         <Dialog.Title
-          as="h2"
-          className="font-bold leading-[24.2px] tracking-[-0.02rem] text-center text-[1.25rem] text-bold-black"
+          as="h3"
+          className="font-extrabold leading-[29.05px] tracking-[-0.02rem] text-left text-[24px] text-bold-black"
         >
           {title}
         </Dialog.Title>
@@ -31,6 +31,7 @@ export default function EditTitle({ title, onClose }: EditTitle) {
         height={24}
         alt="Cross Icon"
         onClick={onClose}
+        className="cursor-pointer"
       />
     </section>
   );

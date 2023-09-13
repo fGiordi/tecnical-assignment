@@ -1,11 +1,6 @@
-import { ActionBtn } from '@/types/actionbtn';
+import { IActionBtn } from '@/types/actionbtn';
 
-export default function EntityActionBtn({
-  name,
-  action,
-  fill,
-  danger
-}: ActionBtn) {
+export default function ActionBtn({ name, action, fill, danger }: IActionBtn) {
   const isDangerFill = fill && danger === true;
   const isNotDangerNoFill = !fill && !danger;
   const isNotDangerFill = fill && !danger;

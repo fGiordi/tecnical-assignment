@@ -4,8 +4,8 @@ import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
 import Input from '@/app/components/form/Input';
 import OfficeColor from '@/app/components/OfficeColor';
-import { officeColors } from '@/utils/officeColors';
-import EntityActionBtn from '@/app/components/form/EntityActionBtn';
+import { OfficeColors } from '@/utils/officeColors';
+import ActionBtn from '@/app/components/form/ActionBtn';
 
 export default function NewOffice() {
   // TODO to add form state libray and state mangement and DB connection
@@ -31,7 +31,7 @@ export default function NewOffice() {
         </h2>
 
         <div className="grid grid-cols-6 gap-9 mb-9">
-          {officeColors.map((color, index) => {
+          {OfficeColors.map((color, index) => {
             return (
               <OfficeColor
                 key={index}
@@ -44,11 +44,7 @@ export default function NewOffice() {
         </div>
 
         <div className="flex items-center justify-center mb-[78px]">
-          <EntityActionBtn
-            name="Add Office"
-            action={submitOffice}
-            fill={true}
-          />
+          <ActionBtn name="Add Office" action={submitOffice} fill={true} />
         </div>
       </form>
     </div>

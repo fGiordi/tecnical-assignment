@@ -4,8 +4,8 @@ import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
 import Input from '@/app/components/form/Input';
 import OfficeColor from '@/app/components/OfficeColor';
-import { officeColors } from '@/utils/officeColors';
-import EntityActionBtn from '@/app/components/form/EntityActionBtn';
+import { OfficeColors } from '@/utils/officeColors';
+import ActionBtn from '@/app/components/form/ActionBtn';
 import Modal from '@/app/components/modal';
 import DeleteOfficeBtns from '@/app/components/form/DeleteOfficeBtns';
 import StaffStepper from '@/app/components/form/StaffStepper';
@@ -30,11 +30,9 @@ export default function EditOffice({ params }: { params: { id: string } }) {
     setIsOpen(false);
   };
 
-  console.log('isOpen', isOpen);
-
   return (
     <div className="flex flex-col px-4">
-      <ActionTitle title="New Office" />
+      <ActionTitle title="Edit Office" />
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col py-4 gap-6">
           <Input type="text" placeholder="New Office" />
@@ -48,7 +46,7 @@ export default function EditOffice({ params }: { params: { id: string } }) {
         </h2>
 
         <div className="grid grid-cols-6 gap-9 mb-9">
-          {officeColors.map((color, index) => {
+          {OfficeColors.map((color, index) => {
             return (
               <OfficeColor
                 key={index}
@@ -61,13 +59,9 @@ export default function EditOffice({ params }: { params: { id: string } }) {
         </div>
 
         <div className="flex flex-col gap-7 items-center justify-center mb-[78px]">
-          <EntityActionBtn
-            name="Update Office"
-            action={EditOffice}
-            fill={true}
-          />
+          <ActionBtn name="Update Office" action={EditOffice} fill={true} />
 
-          <EntityActionBtn
+          <ActionBtn
             name="Delete Office"
             action={() => setIsOpen(true)}
             fill={false}
@@ -84,7 +78,7 @@ export default function EditOffice({ params }: { params: { id: string } }) {
       <Modal
         isOpen={isOpen}
         onClose={closeModal}
-        title="Are you sure you want Edit Staff Member?"
+        title="Edit Staff Member"
         type="edit"
         body={<StaffStepper />}
       />

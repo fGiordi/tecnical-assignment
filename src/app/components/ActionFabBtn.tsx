@@ -10,7 +10,7 @@ interface IActionBtn {
   page: Pages;
 }
 
-export default function ActionBtn({ page }: IActionBtn) {
+export default function ActionFabBtn({ page }: IActionBtn) {
   const router = useRouter();
 
   const goToPage = () => {

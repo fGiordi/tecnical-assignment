@@ -17,7 +17,7 @@ interface Modal {
 export default function Modal({ title, isOpen, onClose, body, type }: Modal) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
-      <Dialog as="section" className="relative z-10" onClose={onClose}>
+      <Dialog as="section" className="relative z-10 " onClose={onClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -31,7 +31,7 @@ export default function Modal({ title, isOpen, onClose, body, type }: Modal) {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex min-h-full items-center justify-center p-4 text-center ">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -41,7 +41,8 @@ export default function Modal({ title, isOpen, onClose, body, type }: Modal) {
               leaveFrom="opacity-100 scale-10"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-specno-light-bg p-6 text-left align-middle shadow-xl transition-all">
+                {/*TODO: Create TitleType Component */}
                 {type === 'delete' && (
                   <DeleteTitle title={title} onClose={onClose} />
                 )}
