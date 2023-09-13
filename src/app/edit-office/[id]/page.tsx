@@ -6,13 +6,18 @@ import Input from '@/app/components/Form/Input';
 import OfficeColor from '@/app/components/OfficeColor';
 import { officeColors } from '@/utils/officeColors';
 import EntityActionBtn from '@/app/components/Form/EntityActionBtn';
+import { edgeServerAppPaths } from 'next/dist/build/webpack/plugins/pages-manifest-plugin';
 
-export default function NewOffice() {
+export default function EditOffice({ params }: { params: { id: string } }) {
   // TODO to add form state libray and state mangement and DB connection
   const [preselectedColor, setPreSelectedColor] = useState<string | null>(null);
 
-  const submitOffice = () => {
-    // TODO to submit new office form
+  const EditOffice = () => {
+    // TODO to submit new office
+  };
+
+  const deleteOffice = () => {
+    // TODO: to delete office
   };
 
   return (
@@ -43,10 +48,16 @@ export default function NewOffice() {
           })}
         </div>
 
-        <div className="flex items-center justify-center mb-[78px]">
+        <div className="flex flex-col gap-7 items-center justify-center mb-[78px]">
           <EntityActionBtn
-            name="Add Office"
-            action={submitOffice}
+            name="Update Office"
+            action={EditOffice}
+            fill={true}
+          />
+
+          <EntityActionBtn
+            name="Delete Office"
+            action={deleteOffice}
             fill={true}
           />
         </div>

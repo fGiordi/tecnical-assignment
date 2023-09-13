@@ -1,8 +1,9 @@
 import Image from 'next/image';
+
 const Header = () => {
   return (
-    <div className="flex justify-between w-full max-w-[1000px] mx-auto py-4 px-2">
-      <div className="flex items-center justify-center gap-3">
+    <header className="flex justify-between w-full max-w-[1000px] mx-auto py-4 px-4">
+      <section className="flex items-center justify-center gap-3">
         <h2>19:00</h2>
         <Image
           src="https://user-images.githubusercontent.com/27930281/133587891-12ae14c2-77b5-45a9-966c-4c086b767dda.png"
@@ -10,8 +11,8 @@ const Header = () => {
           width={20}
           height={20}
         />
-      </div>
-      <div className="flex gap-10">
+      </section>
+      <section className="flex gap-10">
         <Image
           src="https://user-images.githubusercontent.com/27930281/133588459-a8bd40b4-c120-42f3-b48c-02ec1962a170.png"
           alt="volumeIcon"
@@ -24,8 +25,8 @@ const Header = () => {
           width={20}
           height={20}
         />
-      </div>
-    </div>
+      </section>
+    </header>
   );
 };
 

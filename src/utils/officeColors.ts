@@ -13,12 +13,9 @@ export const officeColors: OfficeColor[] = [
     name: 'bg-office-orange-normal'
   },
   {
-    name: 'bg-office-blue-normal'
+    name: 'bg-office-brown-normal'
   },
   { name: 'bg-office-indigo-normal' },
-  {
-    name: 'bg-office-indigo'
-  },
   {
     name: 'bg-office-pink-normal'
   },
@@ -30,6 +27,9 @@ export const officeColors: OfficeColor[] = [
   },
   {
     name: 'bg-office-specno-blue-normal'
+  },
+  {
+    name: 'bg-office-blue-normal'
   },
   {
     name: 'bg-office-purple-normal'

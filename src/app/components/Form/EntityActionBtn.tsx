@@ -1,10 +1,9 @@
-import React from 'react';
-
 interface ActionBtn {
   name: string;
   action: () => void;
   fill: boolean;
 }
+
 export default function EntityActionBtn({ name, action, fill }: ActionBtn) {
   return (
     <button
