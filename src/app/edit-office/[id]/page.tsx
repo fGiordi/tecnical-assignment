@@ -60,7 +60,6 @@ export default function EditOffice({ params }: { params: { id: string } }) {
 
         <div className="flex flex-col gap-7 items-center justify-center mb-[78px]">
           <ActionBtn name="Update Office" action={EditOffice} fill={true} />
-
           <ActionBtn
             name="Delete Office"
             action={() => setIsOpen(true)}
