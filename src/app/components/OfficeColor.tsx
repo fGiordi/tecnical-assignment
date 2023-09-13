@@ -16,7 +16,7 @@ export default function OfficeColor({
   };
 
   return (
-    <button
+    <div
       onClick={toggleSelected}
       className={`cursor-pointer w-[36px] h-[36px] rounded-full ${color} ${
         isSelected ? 'border-4 border-selected' : ''

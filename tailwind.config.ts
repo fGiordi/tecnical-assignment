@@ -54,6 +54,8 @@ const config: Config = {
       },
       selected: '#475569',
       'light-gray-text': '#F8FAFC',
+      'bold-black': '#000000',
+      danger: '#F44336',
       ...colors
     }
   },
