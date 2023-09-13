@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
-import Input from '@/app/components/Form/Input';
+import Input from '@/app/components/form/Input';
 import OfficeColor from '@/app/components/OfficeColor';
 import { officeColors } from '@/utils/officeColors';
-import EntityActionBtn from '@/app/components/Form/EntityActionBtn';
+import EntityActionBtn from '@/app/components/form/EntityActionBtn';
 
 export default function NewOffice() {
   // TODO to add form state libray and state mangement and DB connection
