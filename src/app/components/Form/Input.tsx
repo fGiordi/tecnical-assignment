@@ -1,5 +1,5 @@
 interface IInput {
-  type: string | number;
+  type: string;
   placeholder: string;
   styles?: string;
   value?: string | number;
