@@ -68,20 +68,20 @@ export default function EditOffice({ params }: { params: { id: string } }) {
           />
         </div>
       </form>
-      {/* <Modal
+      <Modal
         isOpen={isOpen}
         onClose={closeModal}
         title="Are you sure you want to Delete Office?"
         type="delete"
         body={<DeleteOfficeBtns onClose={closeModal} />}
-      /> */}
-      <Modal
+      />
+      {/* <Modal
         isOpen={isOpen}
         onClose={closeModal}
         title="Edit Staff Member"
         type="edit"
-        body={<StaffStepper />}
-      />
+        body={<StaffStepper onClose={closeModal} />}
+      /> */}
     </div>
   );
 }

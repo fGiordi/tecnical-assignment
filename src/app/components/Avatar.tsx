@@ -1,12 +1,14 @@
 import Image from 'next/image';
 
 interface IAvatar {
+  index: number;
   avatar: string;
   setPreselectedAvatar: React.Dispatch<React.SetStateAction<string | null>>;
   preselectedAvatar: null | string;
 }
 
 export default function Avatar({
+  index,
   avatar,
   preselectedAvatar,
   setPreselectedAvatar
@@ -20,7 +22,7 @@ export default function Avatar({
   return (
     <Image
       src={avatar}
-      alt="Avatar Img"
+      alt={`Avatar ${index}`}
       width={48}
       height={48}
       onClick={toggleSelected}

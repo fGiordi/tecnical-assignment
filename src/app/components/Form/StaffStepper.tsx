@@ -9,13 +9,16 @@ enum Steps {
   Avatar
 }
 
-export default function StaffStepper() {
+interface IStaffStepper {
+  onClose: () => void;
+}
+
+export default function StaffStepper({ onClose }: IStaffStepper) {
   const [step, setSteps] = useState(Steps.Names);
 
   const [preselectedAvatar, setPreSelectedAvatar] = useState<string | null>(
     null
   );
-
   // TODO: store state of buttons with actions
 
   // TODO: fetch actions from store -> db
@@ -37,38 +40,30 @@ export default function StaffStepper() {
     return step === Steps.Avatar;
   };
 
-  const StepView = () => {
-    switch (step) {
-      case 0:
-        return (
-          <>
-            <Input type="text" placeholder="Jacques" />
-            <Input type="text" placeholder="Jordan" />
-          </>
-        );
-      case 1:
-        return;
-      default:
-        return null;
-    }
+  const updateStaff = () => {
+    // TODO to update staff member now
+    onClose();
   };
+
+  const firstStep = step === Steps.Names;
+  const secondStep = step === Steps.Avatar;
 
   return (
     <div className="flex flex-col items-center gap-[12px] justify-center  mt-7">
       <form className="flex flex-col gap-3  w-full">
-        {step === Steps.Names && (
+        {firstStep && (
           <>
             <Input type="text" placeholder="Jacques" />
             <Input type="text" placeholder="Jordan" />
           </>
         )}
-        {step === Steps.Avatar && (
+        {secondStep && (
           <div className="flex flex-col">
             <div className="flex flex-col gap-6">
               <h2 className="font-semibold leading-[19.05px] text-[24px] text-bold-black">
                 Avatar
               </h2>
-              <div className="grid grid-cols-4 gap-9 mb-9">
+              <div className="grid grid-cols-4 gap-6 ">
                 {AVATARS.map((avatar, index) => {
                   return (
                     <Avatar
@@ -76,6 +71,7 @@ export default function StaffStepper() {
                       avatar={avatar}
                       setPreselectedAvatar={setPreSelectedAvatar}
                       preselectedAvatar={preselectedAvatar}
+                      index={index + 1}
                     />
                   );
                 })}
@@ -85,14 +81,30 @@ export default function StaffStepper() {
         )}
       </form>
       <ul className="flex gap-2 mt-7">
-        <li className="w-2 h-2 bg-office-blue-normal rounded-full"></li>
-        <li className="w-2 h-2 white border-2 border-office-blue-normal rounded-full"></li>
+        <li
+          className={`w-2 h-2  rounded-full ${
+            firstStep
+              ? 'bg-office-blue-normal'
+              : 'bg-white border-2 border-office-blue-normal'
+          }`}
+        ></li>
+        <li
+          className={`w-2 h-2  rounded-full ${
+            secondStep
+              ? 'bg-office-blue-normal'
+              : ' bg-white border-2 border-office-blue-normal '
+          }`}
+        ></li>
       </ul>
 
       <div className="mt-7">
-        {step === 0 && <ActionBtn name="Next" action={nextStep} fill={true} />}
-        {step === 1 && (
-          <ActionBtn name="Update Staff Member" action={nextStep} fill={true} />
+        {firstStep && <ActionBtn name="Next" action={nextStep} fill={true} />}
+        {secondStep && (
+          <ActionBtn
+            name="Update Staff Member"
+            action={updateStaff}
+            fill={true}
+          />
         )}
       </div>
     </div>
