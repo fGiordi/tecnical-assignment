@@ -11,6 +11,9 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
+        a: '',
+        'specno-blue-gradient':
+          'linear-gradient(to bottom, #489DDA 0%, #5aa7de 30%, #74b5e3 60%, #489DDA 100%)',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
@@ -19,6 +22,7 @@ const config: Config = {
     colors: {
       'specno-gray-text': '#484954',
       'specno-light-bg': '#f8fafc',
+      'specno-dust-blue': '#0D4477',
       'office-yellow': {
         normal: '#FFBE0B'
       },
@@ -56,6 +60,7 @@ const config: Config = {
       'light-gray-text': '#F8FAFC',
       'bold-black': '#000000',
       danger: '#F44336',
+      'specno-light-blue': '#E8F3FC',
       ...colors
     }
   },
