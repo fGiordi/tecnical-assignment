@@ -13,7 +13,7 @@ const config: Config = {
       backgroundImage: {
         a: '',
         'specno-blue-gradient':
-          'linear-gradient(to bottom, #489DDA 0%, #5aa7de 30%, #74b5e3 60%, #489DDA 100%)',
+          'linear-gradient(to bottom, #489DDA 25%, #5aa7de 20%, #74b5e3 60%, #489DDA 65%)',
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
