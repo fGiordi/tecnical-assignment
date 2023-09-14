@@ -1,21 +1,5 @@
+import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
-
-type StaffMember = {
-  id: number;
-  name: string;
-  position: string;
-};
-
-type Office = {
-  id: number;
-  officeName: string;
-  physicalAddress: string;
-  email: string;
-  phoneNumber: string;
-  maximumCapacity: number;
-  officeColor: string;
-  staff: StaffMember[];
-};
 
 type OfficeStore = {
   offices: Office[];
