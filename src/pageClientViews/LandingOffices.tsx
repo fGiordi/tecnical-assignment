@@ -1,8 +1,6 @@
 'use client';
 import OfficeCard from '@/app/components/OfficeCard';
 import { useOfficeStore } from '@/store/offices.store';
-import { setLocalStorageItem, getLocalStorageItem } from '@/utils/localStorage';
-import { useEffect } from 'react';
 
 export default function LandingOffices() {
   // TODO to fetch from DB?
@@ -24,7 +22,14 @@ export default function LandingOffices() {
           })} */}
         {offices &&
           offices.map((office, index) => {
-            return <OfficeCard key={index} office={office} id={office.id} />;
+            return (
+              <OfficeCard
+                key={index}
+                office={office}
+                id={office.id}
+                view="all-offices"
+              />
+            );
           })}
       </div>
     </div>

@@ -1,13 +1,13 @@
 'use client';
 import Image from 'next/image';
-import SearchIcon from '@/app/components/svgs/SearchIcon.svg';
+import SearchIcon from '@/app/components/SVGS/SearchIcon.svg';
 import SearchInput from '@/app/components/Form/SearchInput';
 
 import OfficeCard from '@/app/components/OfficeCard';
 import { useOfficeStore } from '@/store/offices.store';
 import { useEffect, useState } from 'react';
 import Input from '@/app/components/Form/Input';
-import MoreIndicatorIcon from '@/app/components/svgs/MoreIcon.svg';
+import MoreIndicatorIcon from '@/app/components/SVGS/MoreIcon.svg';
 import Modal from '@/app/components/Modals';
 import { StaffMember } from '@/types/office';
 
