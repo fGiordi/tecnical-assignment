@@ -2,14 +2,24 @@
 import OfficeCard from '@/app/components/OfficeCard';
 import { useOfficeStore } from '@/store/offices.store';
 import { setLocalStorageItem, getLocalStorageItem } from '@/utils/localStorage';
+import { useEffect } from 'react';
 
 export default function LandingOffices() {
   // TODO to fetch from DB?
   const { offices } = useOfficeStore();
 
-  // setLocalStorageItem('offices', offices); TODO: to conditionally render this
-  const storedData = getLocalStorageItem('offices');
+  // @ts-ignore
+  const storedData = localStorage
+    ? JSON.parse(localStorage.getItem('offices'))
+    : [];
   console.log('storedData', storedData);
+
+  useEffect(() => {
+    // TODO: clean up
+    if (offices) {
+      setLocalStorageItem('offices', offices);
+    }
+  }, [JSON.stringify(offices), JSON.stringify(storedData)]);
 
   return (
     <div>
@@ -18,7 +28,7 @@ export default function LandingOffices() {
           There are currently no offices added to the application
         </h2>
       )}
-      <div className="flex  gap-7 w-full ">
+      <div className="flex md:grid md:grid-cols-3   gap-7 w-full ">
         {/* @ts-ignore */}
         {storedData &&
           // @ts-ignore
