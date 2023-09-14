@@ -3,8 +3,10 @@ import Image from 'next/image';
 interface IAvatar {
   index: number;
   avatar: string;
-  setPreselectedAvatar: React.Dispatch<React.SetStateAction<string | null>>;
-  preselectedAvatar: null | string;
+  setPreselectedAvatar: React.Dispatch<
+    React.SetStateAction<string | null | undefined>
+  >;
+  preselectedAvatar: null | string | undefined;
 }
 
 export default function Avatar({

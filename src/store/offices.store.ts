@@ -72,20 +72,35 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
 
   updateStaffMember: (officeId, staffMemberId, staffMemberData) => {
-    set((state) => ({
-      offices: state.offices.map((office) =>
-        office.id === officeId
-          ? {
-              ...office,
-              staff: office.staff.map((staffMember) =>
-                staffMember.id === staffMemberId
-                  ? { ...staffMember, ...staffMemberData }
-                  : staffMember
-              )
-            }
-          : office
-      )
-    }));
+    const allOffices = get().offices.map((office) =>
+      office.id === officeId
+        ? {
+            ...office,
+            staff: office.staff.map((staffMember) =>
+              staffMember.id === staffMemberId
+                ? { ...staffMember, ...staffMemberData }
+                : staffMember
+            )
+          }
+        : office
+    );
+    set({
+      offices: allOffices
+    });
+    // set((state) => ({
+    //   offices: state.offices.map((office) =>
+    //     office.id === officeId
+    //       ? {
+    //           ...office,
+    //           staff: office.staff.map((staffMember) =>
+    //             staffMember.id === staffMemberId
+    //               ? { ...staffMember, ...staffMemberData }
+    //               : staffMember
+    //           )
+    //         }
+    //       : office
+    //   )
+    // }));
   },
 
   deleteStaffMember: (officeId, staffMemberId) => {

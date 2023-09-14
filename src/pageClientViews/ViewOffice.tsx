@@ -7,6 +7,7 @@ import Modal from '@/app/components/Modal';
 import StaffStepper from '@/app/components/Form/StaffStepper';
 import OfficeStaffMember from '@/app/components/Office/OfficeStaffMember';
 import { useOfficeStore } from '@/store/offices.store';
+import { StaffMember } from '@/types/office';
 
 interface IViewOffice {
   id: string;
@@ -17,14 +18,19 @@ export default function Office({ id }: IViewOffice) {
   const { findById, office, offices, searchStaffMembers } = useOfficeStore();
   const currentOffice = offices.find((office) => office.id === Number(id));
 
+  const [selectedStaffMember, setSeletedStaffMember] = useState<
+    StaffMember | undefined
+  >();
+
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
     setIsOpen(false);
   };
 
-  const editStaffAction = () => {
+  const editStaffAction = (staffMember: StaffMember | undefined) => {
     setIsOpen(true);
+    setSeletedStaffMember(staffMember);
   };
 
   const handleInputChange = (value: string) => {
@@ -67,6 +73,8 @@ export default function Office({ id }: IViewOffice) {
               firstName={staff.firstName}
               lastName={staff.lastName}
               officeId={String(id)}
+              staffId={staff.id}
+              staffMember={staff}
               editStaffAction={editStaffAction}
             />
           );
@@ -77,7 +85,14 @@ export default function Office({ id }: IViewOffice) {
         onClose={closeModal}
         title="Edit Staff Member"
         type="edit"
-        body={<StaffStepper onClose={closeModal} officeId={id} />}
+        body={
+          <StaffStepper
+            onClose={closeModal}
+            officeId={id}
+            staffMember={selectedStaffMember}
+            staffId={selectedStaffMember?.id}
+          />
+        }
       />
     </div>
   );

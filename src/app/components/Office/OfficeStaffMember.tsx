@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import MoreIndicatorIcon from '@/app/components/SVGS/MoreIcon.svg';
+import { StaffMember } from '@/types/office';
 
 interface IStaffMember {
   avatar: string;
   firstName: string;
   lastName: string;
   officeId: string;
-  editStaffAction: () => void;
+  editStaffAction: (staffMember: StaffMember | undefined) => void;
+  staffId: number;
+  staffMember?: StaffMember;
 }
 
 export default function OfficeStaffMember({
@@ -14,6 +17,8 @@ export default function OfficeStaffMember({
   firstName,
   lastName,
   officeId,
+  staffId,
+  staffMember,
   editStaffAction
 }: IStaffMember) {
   return (
@@ -30,7 +35,7 @@ export default function OfficeStaffMember({
           {`${firstName} ${lastName}`}
         </h2>
       </div>
-      <button onClick={editStaffAction}>
+      <button onClick={() => editStaffAction(staffMember)}>
         <Image
           src={MoreIndicatorIcon}
           alt="More Indicator"

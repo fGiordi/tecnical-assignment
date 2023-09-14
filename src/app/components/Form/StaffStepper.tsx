@@ -6,6 +6,7 @@ import ActionBtn from '@/app/components/Buttons/ActionBtn';
 import Avatar from '@/app/components/Avatar';
 import { useHelpersStore } from '@/store/helpers.store';
 import { useOfficeStore } from '@/store/offices.store';
+import { StaffMember } from '@/types/office';
 
 enum Steps {
   Names,
@@ -15,23 +16,27 @@ enum Steps {
 interface IStaffStepper {
   onClose: () => void;
   officeId: string;
+  staffId?: number | null;
+  staffMember?: StaffMember;
 }
 
-export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
+export default function StaffStepper({
+  onClose,
+  officeId,
+  staffId,
+  staffMember
+}: IStaffStepper) {
   const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
     useHelpersStore();
-  const { addStaffMember, office } = useOfficeStore();
-  console.log('office in stepper', office);
+  const { addStaffMember, office, updateStaffMember } = useOfficeStore();
   const [step, setSteps] = useState(activeStepper);
 
-  console.log('activeStepper', activeStepper);
+  const [firstName, setFirstName] = useState(staffMember?.firstName);
+  const [lastName, setLastName] = useState(staffMember?.lastName);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-
-  const [preselectedAvatar, setPreSelectedAvatar] = useState<string | null>(
-    null
-  );
+  const [preselectedAvatar, setPreSelectedAvatar] = useState<
+    string | undefined | null
+  >(staffMember?.avatar);
   // TODO: store state of buttons with actions
 
   // TODO: fetch actions from store -> db
@@ -54,8 +59,9 @@ export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
   };
 
   const updateStaff = () => {
-    if (preselectedAvatar)
-      addStaffMember(Number(officeId), {
+    if (preselectedAvatar && staffId)
+      updateStaffMember(Number(officeId), staffId, {
+        id: staffId,
         firstName,
         lastName,
         avatar: preselectedAvatar
