@@ -10,6 +10,7 @@ import { useOfficeStore } from '@/store/offices.store';
 import { StaffMember } from '@/types/office';
 import { IActionBtn } from '@/types/actionbtn';
 import ActionBtn from '@/app/components/Buttons/ActionBtn';
+import DeleteOfficeBtns from '@/app/components/Buttons/DeleteOfficeBtns';
 
 interface IViewOffice {
   id: string;
@@ -17,10 +18,9 @@ interface IViewOffice {
 
 export default function Office({ id }: IViewOffice) {
   // TODO to fetch from DB?
-  const { findById, office, offices, searchStaffMembers } = useOfficeStore();
+  const { findById, office, offices, searchStaffMembers, deleteStaffMember } =
+    useOfficeStore();
   const currentOffice = offices.find((office) => office.id === Number(id));
-
-  console.log('currentOffice in view', currentOffice);
 
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
@@ -29,6 +29,8 @@ export default function Office({ id }: IViewOffice) {
   const [isOpenEditStaff, setIsOpenEditStaff] = useState(false);
 
   const [isOpenInfo, setIsOpenInfo] = useState(false);
+  const [isOpenDeleteStaff, setIsOpenDeleteStaff] = useState(false);
+  // const [isOpenDeleteModal, isOpenDelete] = useState(false);
 
   const closeModal = () => {
     setIsOpenEditStaff(false);
@@ -37,6 +39,16 @@ export default function Office({ id }: IViewOffice) {
   const openEditStaffModal = () => {
     setIsOpenEditStaff(true);
     closeInfoModal();
+  };
+
+  const openDeleteStaff = () => {
+    setIsOpenDeleteStaff(true);
+    closeInfoModal();
+    closeDeleteStaff();
+  };
+
+  const closeDeleteStaff = () => {
+    setIsOpenDeleteStaff(false);
   };
 
   const closeInfoModal = () => {
@@ -66,9 +78,30 @@ export default function Office({ id }: IViewOffice) {
     },
     {
       name: 'Delete Staff Member',
-      action: () => {},
+      action: openDeleteStaff,
       fill: false,
-      danger: false
+      danger: true
+    }
+  ];
+
+  const handleDeleteStaffMember = () => {
+    if (selectedStaffMember)
+      deleteStaffMember(Number(id), selectedStaffMember.id);
+  };
+
+  const deleteStaffbtns: IActionBtn[] = [
+    {
+      name: 'Delete Staff Member',
+      // TODO: to come from DB
+      action: handleDeleteStaffMember,
+      fill: true,
+      danger: true
+    },
+    {
+      name: 'Keep Staff Member',
+      action: closeDeleteStaff,
+      fill: false,
+      danger: true
     }
   ];
 
@@ -136,6 +169,20 @@ export default function Office({ id }: IViewOffice) {
         body={
           <div className="flex flex-col items-center gap-[12px] justify-center mb-[78px]">
             {infoButtons.map((item, index) => {
+              return <ActionBtn key={index} {...item} />;
+            })}
+          </div>
+        }
+      />
+
+      <Modal
+        isOpen={isOpenDeleteStaff}
+        onClose={closeDeleteStaff}
+        title="Are you sure you want to Staff Member?"
+        type="delete"
+        body={
+          <div className="flex flex-col items-center gap-[12px] justify-center mb-[78px]">
+            {deleteStaffbtns.map((item, index) => {
               return <ActionBtn key={index} {...item} />;
             })}
           </div>

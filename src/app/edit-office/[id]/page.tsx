@@ -8,8 +8,17 @@ import { OfficeColors } from '@/utils/officeColors';
 import ActionBtn from '@/app/components/Buttons/ActionBtn';
 import Modal from '@/app/components/Modal';
 import DeleteOfficeBtns from '@/app/components/Buttons/DeleteOfficeBtns';
+import { useOfficeStore } from '@/store/offices.store';
 
 export default function EditOffice({ params }: { params: { id: string } }) {
+  const { findById, office, offices, searchStaffMembers, deleteStaffMember } =
+    useOfficeStore();
+
+  const currentOffice = offices.find(
+    (office) => office.id === Number(params.id)
+  );
+
+  console.log('currentOffice', currentOffice);
   // TODO to add form state libray and state mangement and DB connection
   const [preselectedColor, setPreSelectedColor] = useState<string | null>(null);
 
@@ -29,16 +38,57 @@ export default function EditOffice({ params }: { params: { id: string } }) {
     setIsOpen(false);
   };
 
+  const [officeName, setOfficeName] = useState(currentOffice?.officeName);
+  const [physicalAddress, setPhysicalAddress] = useState(
+    currentOffice?.physicalAddress
+  );
+  const [email, setEmail] = useState(currentOffice?.email);
+  const [phoneNumber, setPhoneNumber] = useState(currentOffice?.phoneNumber);
+  const [maximumCapacity, setMaximumCapacity] = useState(
+    currentOffice?.maximumCapacity
+  );
+
   return (
     <div className="flex flex-col px-4">
       <ActionTitle title="Edit Office" />
       <form onSubmit={(e) => e.preventDefault()}>
         <div className="flex flex-col py-4 gap-6">
-          <Input type="text" placeholder="New Office" />
-          <Input type="text" placeholder="Physical Address" />
-          <Input type="text" placeholder="Email" />
-          <Input type="text" placeholder="Phone Number" />
-          <Input type="text" placeholder="Maximum Capacity" />
+          <Input
+            type="text"
+            placeholder="Office Name"
+            value={officeName}
+            onChange={(newValue) => setOfficeName(newValue)}
+            required
+          />
+
+          <Input
+            type="text"
+            placeholder="Physical Address"
+            value={physicalAddress}
+            onChange={(newValue) => setPhysicalAddress(newValue)}
+            required
+          />
+          <Input
+            type="text"
+            placeholder="Email"
+            value={email}
+            onChange={(newValue) => setEmail(newValue)}
+            required
+          />
+          <Input
+            type="text"
+            placeholder="Phone Number"
+            value={phoneNumber}
+            onChange={(newValue) => setPhoneNumber(newValue)}
+            required
+          />
+          <Input
+            type="number"
+            placeholder="Maximum Capacity"
+            value={maximumCapacity}
+            onChange={(newValue) => setMaximumCapacity(newValue)}
+            required
+          />
         </div>
         <h2 className="py-5 text-left font-semibold text-[28px] leading-[29px] tracking-[-2px] mb-6">
           Office Color

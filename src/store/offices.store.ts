@@ -99,35 +99,24 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     set({
       offices: allOffices
     });
-    // set((state) => ({
-    //   offices: state.offices.map((office) =>
-    //     office.id === officeId
-    //       ? {
-    //           ...office,
-    //           staff: office.staff.map((staffMember) =>
-    //             staffMember.id === staffMemberId
-    //               ? { ...staffMember, ...staffMemberData }
-    //               : staffMember
-    //           )
-    //         }
-    //       : office
-    //   )
-    // }));
   },
 
   deleteStaffMember: (officeId, staffMemberId) => {
-    set((state) => ({
-      offices: state.offices.map((office) =>
-        office.id === officeId
-          ? {
-              ...office,
-              staff: office.staff.filter(
-                (staffMember) => staffMember.id !== staffMemberId
-              )
-            }
-          : office
-      )
-    }));
+    const allOffices = get().offices.map((office) =>
+      office.id === officeId
+        ? {
+            ...office,
+            staff: office.staff.filter(
+              (staffMember) => staffMember.id !== staffMemberId
+            ),
+            originalStaff: office.staff.filter(
+              (staffMember) => staffMember.id !== staffMemberId
+            )
+          }
+        : office
+    );
+
+    set({ offices: allOffices });
   },
   searchStaffMembers: (officeId: number, searchValue: string) => {
     const allOffices = get().offices.map((office) => {

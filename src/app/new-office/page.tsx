@@ -38,7 +38,8 @@ export default function NewOffice() {
         email,
         phoneNumber,
         maximumCapacity: Number(maximumCapacity),
-        staff: []
+        staff: [],
+        originalStaff: []
       });
     goHome();
 
