@@ -18,9 +18,6 @@ export default function Office({ id }: IViewOffice) {
 
   const updatedOffice = offices.find((office) => office.id === Number(id));
 
-  console.log('office in view', offices);
-  console.log('office specific', updatedOffice);
-
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
