@@ -1,8 +1,7 @@
-interface OfficeColor {
+interface IOfficeColor {
   name: string;
 }
-// Colors with Styles Already
-export const OfficeColors: OfficeColor[] = [
+export const OfficeColors: IOfficeColor[] = [
   {
     name: 'bg-office-yellow-normal'
   },

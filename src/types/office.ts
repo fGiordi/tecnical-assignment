@@ -14,4 +14,5 @@ export type Office = {
   maximumCapacity: number;
   officeColor: string;
   staff: StaffMember[];
+  originalStaff: StaffMember[];
 };

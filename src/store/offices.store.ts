@@ -7,7 +7,7 @@ type OfficeStore = {
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
   deleteOffice: (id: number) => void;
-  addStaffMember: (officeId: number, staffMember: any) => void;
+  addStaffMember: (officeId: number, staffMember: StaffMember) => void;
   updateStaffMember: (
     officeId: number,
     staffMemberId: number,
@@ -15,6 +15,7 @@ type OfficeStore = {
   ) => void;
   deleteStaffMember: (officeId: number, staffMemberId: number) => void;
   findById: (id: number) => void;
+  searchStaffMembers: (officeId: number, searchValue: string) => void;
 };
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
@@ -52,7 +53,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
 
   addStaffMember: (officeId, newStaffMember) => {
-    console.log('about toadd staff member', newStaffMember);
     const allOffices = get().offices.map((office) =>
       office.id === officeId
         ? {
@@ -60,6 +60,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
             staff: [
               ...office.staff,
               {
+                // @ts-ignore
                 id: office.staff.length + 1,
                 ...newStaffMember
               }
@@ -67,7 +68,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           }
         : office
     );
-    console.log('allOffices in store', allOffices);
     set({ offices: allOffices });
   },
 
@@ -102,22 +102,33 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       )
     }));
   },
-  // Function to search and filter staff members within an office
   searchStaffMembers: (officeId: number, searchValue: string) => {
-    set((state) => ({
-      offices: state.offices.map((office) =>
-        office.id === officeId
-          ? {
-              ...office,
-              staff: office.staff.filter((staffMember) =>
-                // @ts-ignore
-                staffMember.name
-                  .toLowerCase()
-                  .includes(searchValue.toLowerCase())
-              )
-            }
-          : office
-      )
-    }));
+    const allOffices = get().offices.map((office) => {
+      if (office.id === officeId) {
+        const originalStaff = office.originalStaff || office.staff;
+        const filteredStaff = originalStaff.filter((staffMember) => {
+          const fullName = `${staffMember.firstName} ${staffMember.lastName}`;
+          return (
+            fullName.toLowerCase().includes(searchValue.toLowerCase()) ||
+            staffMember.firstName
+              .toLowerCase()
+              .includes(searchValue.toLowerCase()) ||
+            staffMember.lastName
+              .toLowerCase()
+              .includes(searchValue.toLowerCase())
+          );
+        });
+
+        return {
+          ...office,
+          staff: searchValue ? filteredStaff : originalStaff,
+          originalStaff: originalStaff
+        };
+      }
+      return office;
+    });
+    set({
+      offices: allOffices
+    });
   }
 }));

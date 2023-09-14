@@ -14,9 +14,8 @@ interface IViewOffice {
 
 export default function Office({ id }: IViewOffice) {
   // TODO to fetch from DB?
-  const { findById, office, offices } = useOfficeStore();
-
-  const updatedOffice = offices.find((office) => office.id === Number(id));
+  const { findById, office, offices, searchStaffMembers } = useOfficeStore();
+  const currentOffice = offices.find((office) => office.id === Number(id));
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -28,13 +27,28 @@ export default function Office({ id }: IViewOffice) {
     setIsOpen(true);
   };
 
+  const handleInputChange = (value: string) => {
+    searchStaffMembers(Number(id), value);
+  };
+
   return (
     <div>
       <div className="flex gap-7 w-full">
-        {office && <OfficeCard office={office} id={office.id} view="office" />}
+        {currentOffice && (
+          <OfficeCard
+            office={currentOffice}
+            id={currentOffice.id}
+            view="office"
+          />
+        )}
       </div>
       <div className="w-full flex justify-end items-center relative">
-        <SearchInput placeholder="Search" type="text" icon={SearchIcon} />
+        <SearchInput
+          placeholder="Search"
+          type="text"
+          icon={SearchIcon}
+          onChange={(e) => handleInputChange(e)}
+        />
       </div>
       <div className="flex flex-col gap-[14px] mt-6">
         <div className="flex justify-between">
@@ -45,7 +59,7 @@ export default function Office({ id }: IViewOffice) {
             {office?.maximumCapacity || 0}
           </h3>
         </div>
-        {updatedOffice?.staff.map((staff) => {
+        {currentOffice?.staff.map((staff) => {
           return (
             <OfficeStaffMember
               key={staff.id}
