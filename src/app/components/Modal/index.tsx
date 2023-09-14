@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import DeleteTitle from '@/app/components/Modals/DeleteTitle';
-import EditTitle from '@/app/components/Modals/EditTitle';
+import DeleteTitle from '@/app/components/Modal/Titles/DeleteTitle';
+import EditTitle from '@/app/components/Modal/Titles/EditTitle';
 
 type ModalTypes = 'delete' | 'edit';
 

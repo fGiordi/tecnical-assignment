@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Input from '@/app/components/Form/Input';
 import { AVATARS } from '@/utils/avatars';
-import ActionBtn from '@/app/components/Form/ActionBtn';
+import ActionBtn from '@/app/components/Buttons/ActionBtn';
 import Avatar from '@/app/components/Avatar';
 import { useHelpersStore } from '@/store/helpers.store';
 import { useOfficeStore } from '@/store/offices.store';

@@ -1,5 +1,5 @@
 'use client';
-import OfficeCard from '@/app/components/OfficeCard';
+import OfficeCard from '@/app/components/Office/OfficeCard';
 import { useOfficeStore } from '@/store/offices.store';
 
 export default function LandingOffices() {

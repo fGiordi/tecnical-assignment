@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
 import ViewOffice from '@/pageClientViews/ViewOffice';
-import ActionFabBtn from '@/app/components/ActionFabBtn';
-import Modal from '@/app/components/Modals';
+import ActionFabBtn from '@/app/components/Buttons/ActionFabBtn';
+import Modal from '@/app/components/Modal';
 import StaffStepper from '@/app/components/Form/StaffStepper';
 
 export default function Office({ params }: { params: { id: string } }) {

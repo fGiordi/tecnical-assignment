@@ -3,12 +3,11 @@
 import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
 import Input from '@/app/components/Form/Input';
-import OfficeColor from '@/app/components/OfficeColor';
+import OfficeColor from '@/app/components/Office/OfficeColor';
 import { OfficeColors } from '@/utils/officeColors';
-import ActionBtn from '@/app/components/Form/ActionBtn';
-import Modal from '@/app/components/Modals';
-import DeleteOfficeBtns from '@/app/components/Form/DeleteOfficeBtns';
-import StaffStepper from '@/app/components/Form/StaffStepper';
+import ActionBtn from '@/app/components/Buttons/ActionBtn';
+import Modal from '@/app/components/Modal';
+import DeleteOfficeBtns from '@/app/components/Buttons/DeleteOfficeBtns';
 
 export default function EditOffice({ params }: { params: { id: string } }) {
   // TODO to add form state libray and state mangement and DB connection
@@ -74,13 +73,6 @@ export default function EditOffice({ params }: { params: { id: string } }) {
         type="delete"
         body={<DeleteOfficeBtns onClose={closeModal} />}
       />
-      {/* <Modal
-        isOpen={isOpen}
-        onClose={closeModal}
-        title="Edit Staff Member"
-        type="edit"
-        body={<StaffStepper onClose={closeModal} />}
-      /> */}
     </div>
   );
 }
