@@ -1,5 +1,5 @@
 import { IInput } from '@/types/input';
-import Input from '@/app/components/form/Input';
+import Input from '@/app/components/Form/Input';
 import Image from 'next/image';
 
 export default function Search({

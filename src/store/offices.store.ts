@@ -7,10 +7,7 @@ type OfficeStore = {
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
   deleteOffice: (id: number) => void;
-  addStaffMember: (
-    officeId: number,
-    staffMember: Omit<StaffMember, 'id'>
-  ) => void;
+  addStaffMember: (officeId: number, staffMember: any) => void;
   updateStaffMember: (
     officeId: number,
     staffMemberId: number,
@@ -20,7 +17,7 @@ type OfficeStore = {
   findById: (id: number) => void;
 };
 
-export const useOfficeStore = create<OfficeStore>((set) => ({
+export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,
   addOffice: (newOffice) => {
@@ -55,22 +52,23 @@ export const useOfficeStore = create<OfficeStore>((set) => ({
   },
 
   addStaffMember: (officeId, newStaffMember) => {
-    set((state) => ({
-      offices: state.offices.map((office) =>
-        office.id === officeId
-          ? {
-              ...office,
-              staff: [
-                ...office.staff,
-                {
-                  id: office.staff.length + 1,
-                  ...newStaffMember
-                }
-              ]
-            }
-          : office
-      )
-    }));
+    console.log('about toadd staff member', newStaffMember);
+    const allOffices = get().offices.map((office) =>
+      office.id === officeId
+        ? {
+            ...office,
+            staff: [
+              ...office.staff,
+              {
+                id: office.staff.length + 1,
+                ...newStaffMember
+              }
+            ]
+          }
+        : office
+    );
+    console.log('allOffices in store', allOffices);
+    set({ offices: allOffices });
   },
 
   updateStaffMember: (officeId, staffMemberId, staffMemberData) => {
@@ -112,6 +110,7 @@ export const useOfficeStore = create<OfficeStore>((set) => ({
           ? {
               ...office,
               staff: office.staff.filter((staffMember) =>
+                // @ts-ignore
                 staffMember.name
                   .toLowerCase()
                   .includes(searchValue.toLowerCase())

@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
-import Input from '@/app/components/form/Input';
+import Input from '@/app/components/Form/Input';
 import OfficeColor from '@/app/components/OfficeColor';
 import { OfficeColors } from '@/utils/officeColors';
-import ActionBtn from '@/app/components/form/ActionBtn';
+import ActionBtn from '@/app/components/Form/ActionBtn';
 import { useOfficeStore } from '@/store/offices.store';
 import { useRouter } from 'next/navigation';
 

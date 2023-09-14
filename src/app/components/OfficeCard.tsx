@@ -97,7 +97,7 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
               />
               <IconText
                 imgName="People Icon"
-                text={office.maximumCapacity}
+                text={`Office Capacity: ${office.maximumCapacity}`}
                 icon={PeopleIconBlue.src}
               />
               <IconText

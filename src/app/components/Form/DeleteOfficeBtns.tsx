@@ -1,5 +1,5 @@
 import { IActionBtn } from '@/types/actionbtn';
-import ActionBtn from '@/app/components/form/ActionBtn';
+import ActionBtn from '@/app/components/Form/ActionBtn';
 
 interface IDeleteOfficeBtns {
   onClose: () => void;

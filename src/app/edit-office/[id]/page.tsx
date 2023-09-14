@@ -2,13 +2,13 @@
 
 import { useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
-import Input from '@/app/components/form/Input';
+import Input from '@/app/components/Form/Input';
 import OfficeColor from '@/app/components/OfficeColor';
 import { OfficeColors } from '@/utils/officeColors';
-import ActionBtn from '@/app/components/form/ActionBtn';
-import Modal from '@/app/components/modal';
-import DeleteOfficeBtns from '@/app/components/form/DeleteOfficeBtns';
-import StaffStepper from '@/app/components/form/StaffStepper';
+import ActionBtn from '@/app/components/Form/ActionBtn';
+import Modal from '@/app/components/Modals';
+import DeleteOfficeBtns from '@/app/components/Form/DeleteOfficeBtns';
+import StaffStepper from '@/app/components/Form/StaffStepper';
 
 export default function EditOffice({ params }: { params: { id: string } }) {
   // TODO to add form state libray and state mangement and DB connection

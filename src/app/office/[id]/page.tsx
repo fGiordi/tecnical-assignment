@@ -1,12 +1,10 @@
 'use client';
 import { useState } from 'react';
-
 import ActionTitle from '@/app/components/ActionTitle';
 import ViewOffice from '@/pageClientViews/ViewOffice';
 import ActionFabBtn from '@/app/components/ActionFabBtn';
-import ActionBtn from '@/app/components/form/ActionBtn';
-import Modal from '@/app/components/modal';
-import StaffStepper from '@/app/components/form/StaffStepper';
+import Modal from '@/app/components/Modals';
+import StaffStepper from '@/app/components/Form/StaffStepper';
 
 export default function Office({ params }: { params: { id: string } }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,8 +37,6 @@ export default function Office({ params }: { params: { id: string } }) {
         <ActionTitle title="Office" />
         <ViewOffice id={params.id} />
       </div>
-      {/* Show All Staff here  */}
-      {/* <OfficeCard key={index} office={office} id={office.id} />; */}
 
       <div className="flex items-end justify-end">
         <ActionFabBtn action={openModal} />

@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
-import Input from '@/app/components/form/Input';
+import Input from '@/app/components/Form/Input';
 import { AVATARS } from '@/utils/avatars';
-import ActionBtn from '@/app/components/form/ActionBtn';
+import ActionBtn from '@/app/components/Form/ActionBtn';
 import Avatar from '@/app/components/Avatar';
 import { useHelpersStore } from '@/store/helpers.store';
 import { useOfficeStore } from '@/store/offices.store';
@@ -18,10 +18,13 @@ interface IStaffStepper {
 }
 
 export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
-  const { activeStepper } = useHelpersStore();
+  const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
+    useHelpersStore();
   const { addStaffMember, office } = useOfficeStore();
   console.log('office in stepper', office);
   const [step, setSteps] = useState(activeStepper);
+
+  console.log('activeStepper', activeStepper);
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -37,12 +40,12 @@ export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
 
   // next step function
   const nextStep = () => {
-    setSteps(step + 1);
+    increaseStepper();
   };
 
   // prev step function
   const prevStep = () => {
-    setSteps(step - 1);
+    decreaseStepper();
   };
 
   // check if we are on final step
@@ -51,18 +54,18 @@ export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
   };
 
   const updateStaff = () => {
-    // TODO to update staff member now
     if (preselectedAvatar)
       addStaffMember(Number(officeId), {
         firstName,
         lastName,
         avatar: preselectedAvatar
       });
+    resetStepper();
     onClose();
   };
 
-  const firstStep = activeStepper === Steps.Names;
-  const secondStep = activeStepper === Steps.Avatar;
+  const firstStep = activeStepper == Steps.Names;
+  const secondStep = activeStepper == Steps.Avatar;
 
   return (
     <div className="flex flex-col items-center gap-[12px] justify-center  mt-7">
@@ -108,6 +111,7 @@ export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
       </form>
       <ul className="flex gap-2 mt-7">
         <li
+          onClick={prevStep}
           className={`w-2 h-2  rounded-full ${
             firstStep
               ? 'bg-office-blue-normal'
@@ -129,9 +133,7 @@ export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
             name="Next"
             action={nextStep}
             fill={true}
-            disabled={
-              firstName == '' || lastName == '' || preselectedAvatar == null
-            }
+            disabled={firstStep && (firstName == '' || lastName == '')}
           />
         )}
         {secondStep && (
