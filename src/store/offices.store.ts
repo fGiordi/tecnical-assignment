@@ -96,7 +96,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       }
       return office;
     });
-    console.log('updaated user', allOffices);
     set({
       offices: allOffices
     });
