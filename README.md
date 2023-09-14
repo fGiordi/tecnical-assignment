@@ -31,10 +31,15 @@ Build a CRUD Office Application
 
 ## Deployed Link:
 
+https://tecnical-assignment.vercel.app/
+
 ## Technologies Used:
 
 - Javascript
 - Typescript
+- Next JS
+- CSS
+- Tailwind
 
 # By:
 
