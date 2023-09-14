@@ -6,9 +6,7 @@ interface IStaffMember {
   avatar: string;
   firstName: string;
   lastName: string;
-  officeId: string;
   editStaffAction: (staffMember: StaffMember | undefined) => void;
-  staffId: number;
   staffMember?: StaffMember;
 }
 
@@ -16,8 +14,6 @@ export default function OfficeStaffMember({
   avatar,
   firstName,
   lastName,
-  officeId,
-  staffId,
   staffMember,
   editStaffAction
 }: IStaffMember) {

@@ -18,21 +18,24 @@ interface IStaffStepper {
   officeId: string;
   staffId?: number | null;
   staffMember?: StaffMember;
+  type: 'new' | 'edit';
 }
 
 export default function StaffStepper({
   onClose,
   officeId,
   staffId,
-  staffMember
+  staffMember,
+  type
 }: IStaffStepper) {
   const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
     useHelpersStore();
+
   const { addStaffMember, office, updateStaffMember } = useOfficeStore();
   const [step, setSteps] = useState(activeStepper);
 
-  const [firstName, setFirstName] = useState(staffMember?.firstName);
-  const [lastName, setLastName] = useState(staffMember?.lastName);
+  const [firstName, setFirstName] = useState(staffMember?.firstName || '');
+  const [lastName, setLastName] = useState(staffMember?.lastName || '');
 
   const [preselectedAvatar, setPreSelectedAvatar] = useState<
     string | undefined | null
@@ -62,6 +65,17 @@ export default function StaffStepper({
     if (preselectedAvatar && staffId)
       updateStaffMember(Number(officeId), staffId, {
         id: staffId,
+        firstName,
+        lastName,
+        avatar: preselectedAvatar
+      });
+    resetStepper();
+    onClose();
+  };
+
+  const addStaff = () => {
+    if (preselectedAvatar)
+      addStaffMember(Number(officeId), {
         firstName,
         lastName,
         avatar: preselectedAvatar
@@ -144,8 +158,8 @@ export default function StaffStepper({
         )}
         {secondStep && (
           <ActionBtn
-            name="Update Staff Member"
-            action={updateStaff}
+            name={type == 'new' ? 'Add New Member' : 'Update Staff Member'}
+            action={type == 'new' ? addStaff : updateStaff}
             fill={true}
           />
         )}

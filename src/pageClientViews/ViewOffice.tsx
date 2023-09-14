@@ -8,6 +8,8 @@ import StaffStepper from '@/app/components/Form/StaffStepper';
 import OfficeStaffMember from '@/app/components/Office/OfficeStaffMember';
 import { useOfficeStore } from '@/store/offices.store';
 import { StaffMember } from '@/types/office';
+import { IActionBtn } from '@/types/actionbtn';
+import ActionBtn from '@/app/components/Buttons/ActionBtn';
 
 interface IViewOffice {
   id: string;
@@ -22,20 +24,51 @@ export default function Office({ id }: IViewOffice) {
     StaffMember | undefined
   >();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenEditStaff, setIsOpenEditStaff] = useState(false);
+
+  const [isOpenInfo, setIsOpenInfo] = useState(false);
 
   const closeModal = () => {
-    setIsOpen(false);
+    setIsOpenEditStaff(false);
+  };
+
+  const openEditStaffModal = () => {
+    setIsOpenEditStaff(true);
+    closeInfoModal();
+  };
+
+  const closeInfoModal = () => {
+    setIsOpenInfo(false);
+  };
+
+  const openInfoModal = () => {
+    setIsOpenInfo(true);
   };
 
   const editStaffAction = (staffMember: StaffMember | undefined) => {
-    setIsOpen(true);
+    openInfoModal();
     setSeletedStaffMember(staffMember);
   };
 
   const handleInputChange = (value: string) => {
     searchStaffMembers(Number(id), value);
   };
+
+  const infoButtons: IActionBtn[] = [
+    {
+      name: 'Edit Staff Member',
+      // TODO: to come from DB
+      action: openEditStaffModal,
+      fill: true,
+      danger: false
+    },
+    {
+      name: 'Delete Staff Member',
+      action: () => {},
+      fill: false,
+      danger: false
+    }
+  ];
 
   return (
     <div>
@@ -72,8 +105,6 @@ export default function Office({ id }: IViewOffice) {
               avatar={staff.avatar}
               firstName={staff.firstName}
               lastName={staff.lastName}
-              officeId={String(id)}
-              staffId={staff.id}
               staffMember={staff}
               editStaffAction={editStaffAction}
             />
@@ -81,7 +112,7 @@ export default function Office({ id }: IViewOffice) {
         })}
       </div>
       <Modal
-        isOpen={isOpen}
+        isOpen={isOpenEditStaff}
         onClose={closeModal}
         title="Edit Staff Member"
         type="edit"
@@ -91,7 +122,21 @@ export default function Office({ id }: IViewOffice) {
             officeId={id}
             staffMember={selectedStaffMember}
             staffId={selectedStaffMember?.id}
+            type="edit"
           />
+        }
+      />
+      <Modal
+        isOpen={isOpenInfo}
+        onClose={closeInfoModal}
+        title=""
+        type="info"
+        body={
+          <div className="flex flex-col items-center gap-[12px] justify-center mb-[78px]">
+            {infoButtons.map((item, index) => {
+              return <ActionBtn key={index} {...item} />;
+            })}
+          </div>
         }
       />
     </div>

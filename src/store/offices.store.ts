@@ -7,7 +7,10 @@ type OfficeStore = {
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
   deleteOffice: (id: number) => void;
-  addStaffMember: (officeId: number, staffMember: StaffMember) => void;
+  addStaffMember: (
+    officeId: number,
+    staffMember: Omit<StaffMember, 'id'>
+  ) => void;
   updateStaffMember: (
     officeId: number,
     staffMemberId: number,

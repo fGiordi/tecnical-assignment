@@ -5,9 +5,13 @@ import ViewOffice from '@/pageClientViews/ViewOffice';
 import ActionFabBtn from '@/app/components/Buttons/ActionFabBtn';
 import Modal from '@/app/components/Modal';
 import StaffStepper from '@/app/components/Form/StaffStepper';
+import { useHelpersStore } from '@/store/helpers.store';
 
 export default function Office({ params }: { params: { id: string } }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
+    useHelpersStore();
 
   // TODO to add form state libray and state mangement and DB connection
 
@@ -23,6 +27,7 @@ export default function Office({ params }: { params: { id: string } }) {
 
   const closeModal = () => {
     setIsOpen(false);
+    resetStepper();
   };
 
   const addStaffMember = () => {};
@@ -47,7 +52,9 @@ export default function Office({ params }: { params: { id: string } }) {
         onClose={closeModal}
         title="New Staff Member"
         type="edit"
-        body={<StaffStepper onClose={closeModal} officeId={params.id} />}
+        body={
+          <StaffStepper onClose={closeModal} officeId={params.id} type="new" />
+        }
       />
     </div>
   );

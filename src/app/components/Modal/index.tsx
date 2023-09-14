@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import DeleteTitle from '@/app/components/Modal/Titles/DeleteTitle';
 import EditTitle from '@/app/components/Modal/Titles/EditTitle';
 
-type ModalTypes = 'delete' | 'edit';
+type ModalTypes = 'delete' | 'edit' | 'info';
 
 interface Modal {
   isOpen: boolean;
