@@ -9,17 +9,18 @@ export default function LandingOffices() {
   const { offices } = useOfficeStore();
 
   // @ts-ignore
-  const storedData = localStorage
-    ? JSON.parse(localStorage.getItem('offices'))
-    : [];
-  console.log('storedData', storedData);
+  // const storedData = localStorage
+  //   ? // @ts-ignore
+  //     JSON.parse(localStorage.getItem('offices'))
+  //   : [];
+  // console.log('storedData', storedData);
 
-  useEffect(() => {
-    // TODO: clean up
-    if (offices) {
-      setLocalStorageItem('offices', offices);
-    }
-  }, [JSON.stringify(offices), JSON.stringify(storedData)]);
+  // useEffect(() => {
+  //   // TODO: clean up
+  //   if (offices) {
+  //     setLocalStorageItem('offices', offices);
+  //   }
+  // }, [JSON.stringify(offices), JSON.stringify(storedData)]);
 
   return (
     <div>
@@ -33,6 +34,10 @@ export default function LandingOffices() {
         {storedData &&
           // @ts-ignore
           storedData.map((office, index) => {
+            return <OfficeCard key={index} office={office} id={office.id} />;
+          })}
+        {offices &&
+          offices.map((office, index) => {
             return <OfficeCard key={index} office={office} id={office.id} />;
           })}
       </div>
