@@ -7,10 +7,7 @@ type OfficeStore = {
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
   deleteOffice: (id: number) => void;
-  addStaffMember: (
-    officeId: number,
-    staffMember: Omit<StaffMember, 'id'>
-  ) => void;
+  addStaffMember: (officeId: number, staffMember: any) => void;
   updateStaffMember: (
     officeId: number,
     staffMemberId: number,
@@ -67,6 +64,14 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
                 id: office.staff.length + 1,
                 ...newStaffMember
               }
+            ],
+            originalStaff: [
+              ...office.staff,
+              {
+                // @ts-ignore
+                id: office.staff.length + 1,
+                ...newStaffMember
+              }
             ]
           }
         : office
@@ -75,18 +80,23 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
 
   updateStaffMember: (officeId, staffMemberId, staffMemberData) => {
-    const allOffices = get().offices.map((office) =>
-      office.id === officeId
-        ? {
-            ...office,
-            staff: office.staff.map((staffMember) =>
-              staffMember.id === staffMemberId
-                ? { ...staffMember, ...staffMemberData }
-                : staffMember
-            )
-          }
-        : office
-    );
+    const allOffices = get().offices.map((office) => {
+      if (office.id == officeId) {
+        const updatedStaff = office.staff.map((staffMember) =>
+          staffMember.id === staffMemberId
+            ? { ...staffMember, ...staffMemberData }
+            : staffMember
+        );
+
+        return {
+          ...office,
+          staff: updatedStaff,
+          originalStaff: updatedStaff
+        };
+      }
+      return office;
+    });
+    console.log('updaated user', allOffices);
     set({
       offices: allOffices
     });
@@ -123,7 +133,9 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   searchStaffMembers: (officeId: number, searchValue: string) => {
     const allOffices = get().offices.map((office) => {
       if (office.id === officeId) {
+        // @ts-ignore
         const originalStaff = office.originalStaff || office.staff;
+        // @ts-ignore
         const filteredStaff = originalStaff.filter((staffMember) => {
           const fullName = `${staffMember.firstName} ${staffMember.lastName}`;
           return (
@@ -145,6 +157,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       }
       return office;
     });
+
+    console.log('searching staff', allOffices);
     set({
       offices: allOffices
     });

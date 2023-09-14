@@ -20,6 +20,8 @@ export default function Office({ id }: IViewOffice) {
   const { findById, office, offices, searchStaffMembers } = useOfficeStore();
   const currentOffice = offices.find((office) => office.id === Number(id));
 
+  console.log('currentOffice in view', currentOffice);
+
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
   >();
