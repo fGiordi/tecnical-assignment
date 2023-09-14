@@ -15,9 +15,10 @@ import { Office } from '@/types/office';
 interface IOfficeCard {
   office: Office;
   id: number;
+  view: 'office' | 'all-offices';
 }
 
-export default function OfficeCard({ office, id }: IOfficeCard) {
+export default function OfficeCard({ office, id, view }: IOfficeCard) {
   const goToOfficeView = () => {};
 
   const [moreInfo, setShowMoreInfo] = useState(false);
@@ -30,40 +31,45 @@ export default function OfficeCard({ office, id }: IOfficeCard) {
   };
 
   const toggledOffice = id === office.id;
+  const isOnViewOffice = view === 'office';
+  const isOnLandingPage = view === 'all-offices';
 
   return (
-    <Link
-      href={`/office/${office.id}`}
-      className="flex flex-col bg-white border-specno-light-blue rounded-[8px] max-w-[342px] w-full"
+    <div
+      className={`flex flex-col bg-white border-specno-light-blue rounded-[8px] ${
+        isOnViewOffice ? 'mt-6 ' : isOnLandingPage ? 'max-w-[342px] ' : ''
+      } w-full`}
     >
-      <div className="flex items-start gap-[22px] ">
+      <div className="flex items-start gap-[22px]">
         <div
-          className="flex h-full w-[12px] bg-specno-blue-gradient"
+          className="flex h-full w-[12px] bg-specno-blue-gradient "
           style={{
             borderRadius: '8px 0px 0px 8px'
           }}
         />
-        <div className="flex flex-col w-full justify-start items-start py-[18px] pr-4">
-          <div className="flex justify-between w-full">
-            <h2 className="text-specno-gray-text tracking-[-0.02rem] leading-[30px] text-[24px] font-extrabold">
-              {office.officeName}
-            </h2>
-            <Link href={`/edit-office/${office.id}`}>
-              <Image src={EditBtn.src} width={24} height={24} alt="Phone" />
-            </Link>
-          </div>
-          <div className="mt-3 flex items-start justify-start gap-3 border-b-[0.4px] border-specno-dust-blue w-full pb-[9px]">
-            <Image
-              src={PeopleIcon.src}
-              width={24}
-              height={24}
-              alt="People Icon"
-            />
-            <h3 className="text-specno-gray-text font-normal text-[12px]">
-              <span className="font-bold">{office.maximumCapacity}</span> Staff
-              Members in Office
-            </h3>
-          </div>
+        <div className="flex flex-col w-full justify-start items-start py-[18px] pr-4 ">
+          <Link href={`/office/${office.id}`} className="w-full">
+            <div className="flex justify-between w-full ">
+              <h2 className="text-specno-gray-text tracking-[-0.02rem] leading-[30px] text-[24px] font-extrabold">
+                {office.officeName}
+              </h2>
+              <Link href={`/edit-office/${office.id}`}>
+                <Image src={EditBtn.src} width={24} height={24} alt="Phone" />
+              </Link>
+            </div>
+            <div className="mt-3 flex items-start justify-start gap-3 border-b-[0.4px]  border-specno-dust-blue w-full pb-[9px]">
+              <Image
+                src={PeopleIcon.src}
+                width={24}
+                height={24}
+                alt="People Icon"
+              />
+              <h3 className="text-specno-gray-text font-normal text-[12px]">
+                <span className="font-bold">{office.maximumCapacity}</span>{' '}
+                Staff Members in Office
+              </h3>
+            </div>
+          </Link>
           <div className="flex gap-2.5 items-center justify-center w-full mt-[10px]">
             <h2 className="text-specno-gray-text text-[12px] leading-[22px] font-normal">
               More Info
@@ -103,6 +109,6 @@ export default function OfficeCard({ office, id }: IOfficeCard) {
           )}
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

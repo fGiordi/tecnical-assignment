@@ -1,27 +1,16 @@
 'use client';
-
 import { useState } from 'react';
+
 import ActionTitle from '@/app/components/ActionTitle';
-import Input from '@/app/components/form/Input';
-import OfficeColor from '@/app/components/OfficeColor';
-import { OfficeColors } from '@/utils/officeColors';
+import ViewOffice from '@/pageClientViews/ViewOffice';
+import ActionFabBtn from '@/app/components/ActionFabBtn';
 import ActionBtn from '@/app/components/form/ActionBtn';
 import Modal from '@/app/components/modal';
-import DeleteOfficeBtns from '@/app/components/form/DeleteOfficeBtns';
-import StaffStepper from '@/app/components/form/StaffStepper';
-import { useOfficeStore } from '@/store/offices.store';
 
 export default function Office({ params }: { params: { id: string } }) {
-  // TODO to add form state libray and state mangement and DB connection
-  const [preselectedColor, setPreSelectedColor] = useState<string | null>(null);
-
-  const { office, findById } = useOfficeStore();
-
-  console.log('office', office);
-
-  findById(Number(params.id));
-
   const [isOpen, setIsOpen] = useState(false);
+
+  // TODO to add form state libray and state mangement and DB connection
 
   // TODO to pull data from DB here
 
@@ -37,10 +26,32 @@ export default function Office({ params }: { params: { id: string } }) {
     setIsOpen(false);
   };
 
+  const addStaffMember = () => {};
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
   return (
-    <div className="flex flex-col px-4">
-      <ActionTitle title="Office" />
+    <div className="flex flex-col px-4 justify-between h-[90vh]">
+      <div>
+        <ActionTitle title="Office" />
+        <ViewOffice id={params.id} />
+      </div>
+      {/* Show All Staff here  */}
       {/* <OfficeCard key={index} office={office} id={office.id} />; */}
+
+      <div className="flex items-end justify-end">
+        <ActionFabBtn action={openModal} />
+      </div>
+
+      <Modal
+        isOpen={isOpen}
+        onClose={closeModal}
+        title="New Staff Member"
+        type="edit"
+        // body={<StaffStepper onClose={closeModal} />}
+      />
     </div>
   );
 }

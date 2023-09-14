@@ -2,7 +2,7 @@ import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
 
 type OfficeStore = {
-  office: {};
+  office: Office | null;
   offices: Office[];
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
@@ -22,7 +22,7 @@ type OfficeStore = {
 
 export const useOfficeStore = create<OfficeStore>((set) => ({
   offices: [],
-  office: {},
+  office: null,
   addOffice: (newOffice) => {
     set((state) => ({
       offices: [

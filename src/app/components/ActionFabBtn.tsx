@@ -7,14 +7,20 @@ import { useRouter } from 'next/navigation';
 type Pages = 'new-office';
 
 interface IActionBtn {
-  page: Pages;
+  page?: Pages;
+  action?: () => void;
 }
 
-export default function ActionFabBtn({ page }: IActionBtn) {
+export default function ActionFabBtn({ page, action }: IActionBtn) {
   const router = useRouter();
 
   const goToPage = () => {
-    router.push(`/${page}`);
+    console.log('action', action);
+    if (action) {
+      action();
+    } else {
+      router.push(`/${page}`);
+    }
   };
 
   return (

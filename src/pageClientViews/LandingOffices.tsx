@@ -8,20 +8,6 @@ export default function LandingOffices() {
   // TODO to fetch from DB?
   const { offices } = useOfficeStore();
 
-  // @ts-ignore
-  // const storedData = localStorage
-  //   ? // @ts-ignore
-  //     JSON.parse(localStorage.getItem('offices'))
-  //   : [];
-  // console.log('storedData', storedData);
-
-  // useEffect(() => {
-  //   // TODO: clean up
-  //   if (offices) {
-  //     setLocalStorageItem('offices', offices);
-  //   }
-  // }, [JSON.stringify(offices), JSON.stringify(storedData)]);
-
   return (
     <div>
       {offices.length == 0 && (
@@ -31,11 +17,11 @@ export default function LandingOffices() {
       )}
       <div className="flex md:grid md:grid-cols-3   gap-7 w-full ">
         {/* @ts-ignore */}
-        {storedData &&
+        {/* {storedData &&
           // @ts-ignore
           storedData.map((office, index) => {
             return <OfficeCard key={index} office={office} id={office.id} />;
-          })}
+          })} */}
         {offices &&
           offices.map((office, index) => {
             return <OfficeCard key={index} office={office} id={office.id} />;

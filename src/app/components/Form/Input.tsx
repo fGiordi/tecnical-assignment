@@ -5,6 +5,7 @@ interface IInput {
   value?: string | number;
   required?: boolean;
   onChange?: (value: string) => void;
+  icon?: any;
 }
 
 export default function Input({
