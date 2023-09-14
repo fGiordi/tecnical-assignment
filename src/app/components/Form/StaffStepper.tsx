@@ -40,25 +40,13 @@ export default function StaffStepper({
   const [preselectedAvatar, setPreSelectedAvatar] = useState<
     string | undefined | null
   >(staffMember?.avatar);
-  // TODO: store state of buttons with actions
 
-  // TODO: fetch actions from store -> db
-
-  // TODO: have active step state toggle
-
-  // next step function
   const nextStep = () => {
     increaseStepper();
   };
 
-  // prev step function
   const prevStep = () => {
     decreaseStepper();
-  };
-
-  // check if we are on final step
-  const isFinalStep = () => {
-    return step === Steps.Avatar;
   };
 
   const updateStaff = () => {

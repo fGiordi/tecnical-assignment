@@ -17,7 +17,6 @@ export default function Input({
   onChange
 }: IInput) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('indis', event.target.value);
     if (onChange) {
       onChange(event.target.value);
     }

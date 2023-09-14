@@ -16,7 +16,6 @@ export default function ActionBtn({
       type="submit"
       onClick={action}
       disabled={disabled}
-      // TODO: to addd font of 400?
       className={`uppercase text-center w-[232px] h-[48px] rounded-[100px] ${
         isNotDangerFill
           ? 'bg-office-specno-blue-normal text-light-gray-text'

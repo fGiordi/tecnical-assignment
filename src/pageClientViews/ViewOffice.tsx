@@ -125,13 +125,15 @@ export default function Office({ id }: IViewOffice) {
         />
       </div>
       <div className="flex flex-col gap-[14px] mt-6">
-        <div className="flex justify-between">
+        <div className="flex justify-between pr-3">
           <h2 className="font-semibold text-[24px] leading-[30px] tracking-[-0.02rem] ">
             Staff Members in Office
           </h2>
-          <h3 className="font-normal text-[18px] leading-[24px] text-bold-black">
-            {office?.maximumCapacity || 0}
-          </h3>
+          <div>
+            <h3 className="font-normal text-[18px] leading-[24px] text-bold-black">
+              {office?.maximumCapacity || 0}
+            </h3>
+          </div>
         </div>
         {currentOffice?.staff.map((staff) => {
           return (

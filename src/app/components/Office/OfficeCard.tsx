@@ -19,12 +19,7 @@ interface IOfficeCard {
 }
 
 export default function OfficeCard({ office, id, view }: IOfficeCard) {
-  const goToOfficeView = () => {};
-
   const [moreInfo, setShowMoreInfo] = useState(false);
-
-  // questions some px I did round eg, 11.6 in specno card heading I made it 12px?
-  // same with 9.3 margin bottom of 5 staff members , making it 9
 
   const collapse = () => {
     setShowMoreInfo((preve) => !preve);
@@ -83,7 +78,7 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
               />
             </button>
           </div>
-          {moreInfo && (
+          {moreInfo && toggledOffice && (
             <div className="flex flex-col gap-3 items-start">
               <IconText
                 imgName="Phone Icon"

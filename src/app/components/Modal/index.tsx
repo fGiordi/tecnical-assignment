@@ -1,9 +1,9 @@
 import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import DeleteTitle from '@/app/components/Modal/Titles/DeleteTitle';
-import EditTitle from '@/app/components/Modal/Titles/EditTitle';
+import EditOrAddTitle from '@/app/components/Modal/Titles/EditTitle';
 
-type ModalTypes = 'delete' | 'edit' | 'info';
+type ModalTypes = 'delete' | 'edit' | 'info' | 'new';
 
 interface Modal {
   isOpen: boolean;
@@ -15,6 +15,7 @@ interface Modal {
 }
 
 export default function Modal({ title, isOpen, onClose, body, type }: Modal) {
+  const canEditOrAdd = type === 'edit' || type === 'new';
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="section" className="relative z-10 " onClose={onClose}>
@@ -42,12 +43,11 @@ export default function Modal({ title, isOpen, onClose, body, type }: Modal) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-specno-light-bg p-6 text-left align-middle shadow-xl transition-all">
-                {/*TODO: Create TitleType Component */}
                 {type === 'delete' && (
                   <DeleteTitle title={title} onClose={onClose} />
                 )}
-                {type === 'edit' && (
-                  <EditTitle title={title} onClose={onClose} />
+                {canEditOrAdd && (
+                  <EditOrAddTitle title={title} onClose={onClose} />
                 )}
 
                 <div className="mt-7">{body}</div>

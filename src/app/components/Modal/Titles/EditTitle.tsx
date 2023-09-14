@@ -1,9 +1,8 @@
 'use client';
 import Image from 'next/image';
 import CrossBtn from '@/app/components/SVGS/CrossBtn.svg';
-import BackBtn from '@/app/components/SVGS/BackBtn.svg';
-import { Dialog } from '@headlessui/react';
 import { useHelpersStore } from '@/store/helpers.store';
+import TitleIcon from './TitleIcon';
 
 interface EditTitle {
   title: string;
@@ -11,27 +10,22 @@ interface EditTitle {
 }
 
 export default function EditTitle({ title, onClose }: EditTitle) {
-  const { activeStepper } = useHelpersStore();
+  const { activeStepper, decreaseStepper } = useHelpersStore();
 
   const onFirstStep = activeStepper == 0;
 
-  const goToHome = () => {};
+  const goToHome = () => {
+    if (onFirstStep) {
+      onClose();
+    } else {
+      decreaseStepper();
+    }
+  };
 
   return (
     <section className="flex items-center justify-between">
       <div className="flex items-center gap-3">
-        {/* TODO: make this into component? */}
-        {!onFirstStep && (
-          <button onClick={goToHome}>
-            <Image src={BackBtn.src} width={30} height={30} alt="Close" />
-          </button>
-        )}
-        <Dialog.Title
-          as="h3"
-          className="font-extrabold leading-[29.05px] tracking-[-0.02rem] text-left text-[24px] text-bold-black"
-        >
-          {title}
-        </Dialog.Title>
+        <TitleIcon title={title} goToBack={goToHome} />
       </div>
       <Image
         src={CrossBtn.src}

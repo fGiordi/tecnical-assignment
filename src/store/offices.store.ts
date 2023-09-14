@@ -150,7 +150,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       return office;
     });
 
-    console.log('searching staff', allOffices);
     set({
       offices: allOffices
     });

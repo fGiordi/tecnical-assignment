@@ -10,12 +10,9 @@ export default function DeleteOfficeBtns({
   onClose,
   deleteOffice
 }: IDeleteOfficeBtns) {
-  // TODO: store state of buttons with actions
-  // fetch actions from store -> db
   const deleteBtnsInfo: IActionBtn[] = [
     {
       name: 'Delete Office',
-      // TODO: to come from DB
       action: deleteOffice,
       fill: true,
       danger: true

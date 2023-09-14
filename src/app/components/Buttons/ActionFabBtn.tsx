@@ -15,7 +15,6 @@ export default function ActionFabBtn({ page, action }: IActionBtn) {
   const router = useRouter();
 
   const goToPage = () => {
-    console.log('action', action);
     if (action) {
       action();
     } else {
