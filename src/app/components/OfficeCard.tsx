@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useState } from 'react';
 import EditBtn from '@/app/components/SVGS/EditBtn.svg';
 import PeopleIcon from '@/app/components/SVGS/PeopleIcon.svg';
@@ -31,7 +32,10 @@ export default function OfficeCard({ office, id }: IOfficeCard) {
   const toggledOffice = id === office.id;
 
   return (
-    <div className="flex flex-col bg-white border-specno-light-blue rounded-[8px] max-w-[342px] w-full">
+    <Link
+      href={`/office/${office.id}`}
+      className="flex flex-col bg-white border-specno-light-blue rounded-[8px] max-w-[342px] w-full"
+    >
       <div className="flex items-start gap-[22px] ">
         <div
           className="flex h-full w-[12px] bg-specno-blue-gradient"
@@ -44,9 +48,9 @@ export default function OfficeCard({ office, id }: IOfficeCard) {
             <h2 className="text-specno-gray-text tracking-[-0.02rem] leading-[30px] text-[24px] font-extrabold">
               {office.officeName}
             </h2>
-            <button onClick={goToOfficeView}>
+            <Link href={`/edit-office/${office.id}`}>
               <Image src={EditBtn.src} width={24} height={24} alt="Phone" />
-            </button>
+            </Link>
           </div>
           <div className="mt-3 flex items-start justify-start gap-3 border-b-[0.4px] border-specno-dust-blue w-full pb-[9px]">
             <Image
@@ -99,6 +103,6 @@ export default function OfficeCard({ office, id }: IOfficeCard) {
           )}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

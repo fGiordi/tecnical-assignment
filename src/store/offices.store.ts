@@ -2,6 +2,7 @@ import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
 
 type OfficeStore = {
+  office: {};
   offices: Office[];
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
@@ -16,11 +17,12 @@ type OfficeStore = {
     staffMemberData: Partial<StaffMember>
   ) => void;
   deleteStaffMember: (officeId: number, staffMemberId: number) => void;
+  findById: (id: number) => void;
 };
 
 export const useOfficeStore = create<OfficeStore>((set) => ({
   offices: [],
-
+  office: {},
   addOffice: (newOffice) => {
     set((state) => ({
       offices: [
@@ -33,7 +35,11 @@ export const useOfficeStore = create<OfficeStore>((set) => ({
       ]
     }));
   },
-
+  findById: (id: number) => {
+    set((state) => ({
+      office: state.offices.find((office) => office.id === id)
+    }));
+  },
   updateOffice: (id, officeData) => {
     set((state) => ({
       offices: state.offices.map((office) =>
