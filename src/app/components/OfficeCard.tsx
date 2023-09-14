@@ -18,7 +18,9 @@ export default function OfficeCard() {
   // questions some px I did round eg, 11.6 in specno card heading I made it 12px?
   // same with 9.3 margin bottom of 5 staff members , making it 9
 
-  const collapse = () => {};
+  const collapse = () => {
+    setShowMoreInfo((preve) => !preve);
+  };
 
   return (
     <div className="flex flex-col h-full bg-white border-specno-light-blue rounded-[8px] max-w-md">
@@ -62,7 +64,7 @@ export default function OfficeCard() {
               />
             </button>
           </div>
-          {true && (
+          {moreInfo && (
             <div className="flex flex-col gap-3 items-start">
               <IconText
                 imgName="Phone Icon"
