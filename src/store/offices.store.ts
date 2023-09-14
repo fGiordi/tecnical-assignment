@@ -34,22 +34,26 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     }));
   },
   findById: (id: number) => {
-    set((state) => ({
-      office: state.offices.find((office) => office.id === id)
-    }));
+    const office = get().offices.find((office) => office.id === id);
+    set({
+      office: office
+    });
   },
   updateOffice: (id, officeData) => {
-    set((state) => ({
-      offices: state.offices.map((office) =>
-        office.id === id ? { ...office, ...officeData } : office
-      )
-    }));
+    const allOffices = get().offices.map((office) =>
+      office.id === id ? { ...office, ...officeData } : office
+    );
+    set({
+      offices: allOffices
+    });
   },
 
   deleteOffice: (id) => {
-    set((state) => ({
-      offices: state.offices.filter((office) => office.id !== id)
-    }));
+    const allOffices = get().offices.filter((office) => office.id !== id);
+
+    set({
+      offices: allOffices
+    });
   },
 
   addStaffMember: (officeId, newStaffMember) => {

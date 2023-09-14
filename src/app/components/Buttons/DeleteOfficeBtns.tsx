@@ -3,16 +3,20 @@ import ActionBtn from '@/app/components/Buttons/ActionBtn';
 
 interface IDeleteOfficeBtns {
   onClose: () => void;
+  deleteOffice: () => void;
 }
 
-export default function DeleteOfficeBtns({ onClose }: IDeleteOfficeBtns) {
+export default function DeleteOfficeBtns({
+  onClose,
+  deleteOffice
+}: IDeleteOfficeBtns) {
   // TODO: store state of buttons with actions
   // fetch actions from store -> db
   const deleteBtnsInfo: IActionBtn[] = [
     {
       name: 'Delete Office',
       // TODO: to come from DB
-      action: () => {},
+      action: deleteOffice,
       fill: true,
       danger: true
     },

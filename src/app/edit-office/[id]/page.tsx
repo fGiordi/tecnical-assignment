@@ -9,29 +9,26 @@ import ActionBtn from '@/app/components/Buttons/ActionBtn';
 import Modal from '@/app/components/Modal';
 import DeleteOfficeBtns from '@/app/components/Buttons/DeleteOfficeBtns';
 import { useOfficeStore } from '@/store/offices.store';
+import { useRouter } from 'next/navigation';
 
 export default function EditOffice({ params }: { params: { id: string } }) {
-  const { findById, office, offices, searchStaffMembers, deleteStaffMember } =
-    useOfficeStore();
+  const router = useRouter();
+
+  const { offices, updateOffice, findById, deleteOffice } = useOfficeStore();
 
   const currentOffice = offices.find(
     (office) => office.id === Number(params.id)
   );
 
-  console.log('currentOffice', currentOffice);
-  // TODO to add form state libray and state mangement and DB connection
-  const [preselectedColor, setPreSelectedColor] = useState<string | null>(null);
+  const [preselectedColor, setPreSelectedColor] = useState<string | null>(
+    currentOffice ? currentOffice?.officeColor : null
+  );
 
   const [isOpen, setIsOpen] = useState(false);
 
-  // TODO to pull data from DB here
-
-  const EditOffice = () => {
-    // TODO to submit new office
-  };
-
-  const deleteOffice = () => {
-    // TODO: to delete office
+  const handleDeleteOffice = () => {
+    deleteOffice(Number(params.id));
+    router.push('/');
   };
 
   const closeModal = () => {
@@ -47,6 +44,18 @@ export default function EditOffice({ params }: { params: { id: string } }) {
   const [maximumCapacity, setMaximumCapacity] = useState(
     currentOffice?.maximumCapacity
   );
+
+  const EditOffice = () => {
+    if (currentOffice && preselectedColor)
+      updateOffice(currentOffice.id, {
+        email,
+        phoneNumber,
+        maximumCapacity,
+        officeColor: preselectedColor,
+        officeName,
+        physicalAddress
+      });
+  };
 
   return (
     <div className="flex flex-col px-4">
@@ -86,7 +95,7 @@ export default function EditOffice({ params }: { params: { id: string } }) {
             type="number"
             placeholder="Maximum Capacity"
             value={maximumCapacity}
-            onChange={(newValue) => setMaximumCapacity(newValue)}
+            onChange={(newValue) => setMaximumCapacity(Number(newValue))}
             required
           />
         </div>
@@ -121,7 +130,12 @@ export default function EditOffice({ params }: { params: { id: string } }) {
         onClose={closeModal}
         title="Are you sure you want to Delete Office?"
         type="delete"
-        body={<DeleteOfficeBtns onClose={closeModal} />}
+        body={
+          <DeleteOfficeBtns
+            onClose={closeModal}
+            deleteOffice={handleDeleteOffice}
+          />
+        }
       />
     </div>
   );
