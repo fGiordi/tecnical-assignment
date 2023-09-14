@@ -1,8 +1,11 @@
+'use client';
 import { useState } from 'react';
 import Input from '@/app/components/form/Input';
 import { AVATARS } from '@/utils/avatars';
 import ActionBtn from '@/app/components/form/ActionBtn';
 import Avatar from '@/app/components/Avatar';
+import { useHelpersStore } from '@/store/helpers.store';
+import { useOfficeStore } from '@/store/offices.store';
 
 enum Steps {
   Names,
@@ -11,10 +14,17 @@ enum Steps {
 
 interface IStaffStepper {
   onClose: () => void;
+  officeId: string;
 }
 
-export default function StaffStepper({ onClose }: IStaffStepper) {
-  const [step, setSteps] = useState(Steps.Names);
+export default function StaffStepper({ onClose, officeId }: IStaffStepper) {
+  const { activeStepper } = useHelpersStore();
+  const { addStaffMember, office } = useOfficeStore();
+  console.log('office in stepper', office);
+  const [step, setSteps] = useState(activeStepper);
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const [preselectedAvatar, setPreSelectedAvatar] = useState<string | null>(
     null
@@ -42,19 +52,35 @@ export default function StaffStepper({ onClose }: IStaffStepper) {
 
   const updateStaff = () => {
     // TODO to update staff member now
+    if (preselectedAvatar)
+      addStaffMember(Number(officeId), {
+        firstName,
+        lastName,
+        avatar: preselectedAvatar
+      });
     onClose();
   };
 
-  const firstStep = step === Steps.Names;
-  const secondStep = step === Steps.Avatar;
+  const firstStep = activeStepper === Steps.Names;
+  const secondStep = activeStepper === Steps.Avatar;
 
   return (
     <div className="flex flex-col items-center gap-[12px] justify-center  mt-7">
       <form className="flex flex-col gap-3  w-full">
         {firstStep && (
           <>
-            <Input type="text" placeholder="Jacques" />
-            <Input type="text" placeholder="Jordan" />
+            <Input
+              type="text"
+              placeholder="Jacques"
+              value={firstName}
+              onChange={(newValue) => setFirstName(newValue)}
+            />
+            <Input
+              type="text"
+              placeholder="Jordan"
+              value={lastName}
+              onChange={(newValue) => setLastName(newValue)}
+            />
           </>
         )}
         {secondStep && (
@@ -98,7 +124,16 @@ export default function StaffStepper({ onClose }: IStaffStepper) {
       </ul>
 
       <div className="mt-7">
-        {firstStep && <ActionBtn name="Next" action={nextStep} fill={true} />}
+        {firstStep && (
+          <ActionBtn
+            name="Next"
+            action={nextStep}
+            fill={true}
+            disabled={
+              firstName == '' || lastName == '' || preselectedAvatar == null
+            }
+          />
+        )}
         {secondStep && (
           <ActionBtn
             name="Update Staff Member"

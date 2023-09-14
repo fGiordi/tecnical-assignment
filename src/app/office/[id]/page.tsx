@@ -6,6 +6,7 @@ import ViewOffice from '@/pageClientViews/ViewOffice';
 import ActionFabBtn from '@/app/components/ActionFabBtn';
 import ActionBtn from '@/app/components/form/ActionBtn';
 import Modal from '@/app/components/modal';
+import StaffStepper from '@/app/components/form/StaffStepper';
 
 export default function Office({ params }: { params: { id: string } }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,7 +51,7 @@ export default function Office({ params }: { params: { id: string } }) {
         onClose={closeModal}
         title="New Staff Member"
         type="edit"
-        // body={<StaffStepper onClose={closeModal} />}
+        body={<StaffStepper onClose={closeModal} officeId={params.id} />}
       />
     </div>
   );

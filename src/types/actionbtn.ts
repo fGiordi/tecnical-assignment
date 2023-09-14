@@ -3,4 +3,5 @@ export interface IActionBtn {
   action: () => void;
   fill: boolean;
   danger?: boolean;
+  disabled?: boolean;
 }

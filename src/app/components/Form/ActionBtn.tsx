@@ -1,6 +1,12 @@
 import { IActionBtn } from '@/types/actionbtn';
 
-export default function ActionBtn({ name, action, fill, danger }: IActionBtn) {
+export default function ActionBtn({
+  name,
+  action,
+  fill,
+  danger,
+  disabled
+}: IActionBtn) {
   const isDangerFill = fill && danger === true;
   const isNotDangerNoFill = !fill && !danger;
   const isNotDangerFill = fill && !danger;
@@ -9,6 +15,7 @@ export default function ActionBtn({ name, action, fill, danger }: IActionBtn) {
     <button
       type="submit"
       onClick={action}
+      disabled={disabled}
       // TODO: to addd font of 400?
       className={`uppercase text-center w-[232px] h-[48px] rounded-[100px] ${
         isNotDangerFill

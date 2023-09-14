@@ -1,6 +1,6 @@
 export type StaffMember = {
   id: number;
-  name: string;
+  firstName: string;
   lastName: string;
   avatar: string;
 };
