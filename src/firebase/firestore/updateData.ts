@@ -24,8 +24,7 @@ export default async function UpdateData(
   try {
     const officeRef = doc(db, 'offices', String(id));
 
-    console.log('data edit', data);
-
+    // @ts-ignore
     data.map(async (data) => {
       const res = await updateDoc(officeRef, {
         originalStaff: data.originalStaff,
