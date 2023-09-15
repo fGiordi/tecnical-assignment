@@ -17,7 +17,7 @@ type OfficeStore = {
     staffMemberId: string,
     staffMemberData: Partial<StaffMember>
   ) => void;
-  deleteStaffMember: (officeId: number, staffMemberId: string) => void;
+  deleteStaffMember: (officeId: string, staffMemberId: number) => void;
   findById: (id: number) => void;
   searchStaffMembers: (officeId: number, searchValue: string) => void;
   fetchAllOffices: () => void;
@@ -111,22 +111,27 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     }
   },
 
-  deleteStaffMember: (officeId, staffMemberId) => {
+  deleteStaffMember: async (officeId, staffMemberId) => {
     const allOffices = get().offices.map((office) =>
       office.id === officeId
         ? {
             ...office,
             staff: office.staff.filter(
-              (staffMember) => staffMember.id !== staffMemberId
+              (staffMember) => staffMember.id != staffMemberId
             ),
             originalStaff: office.staff.filter(
-              (staffMember) => staffMember.id !== staffMemberId
+              (staffMember) => staffMember.id != staffMemberId
             )
           }
         : office
     );
-
-    set({ offices: allOffices });
+    console.log('deleting', allOffices);
+    try {
+      await updateData('offices', String(officeId), allOffices);
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating staff', error.message);
+    }
   },
   searchStaffMembers: (officeId: number, searchValue: string) => {
     const allOffices = get().offices.map((office) => {

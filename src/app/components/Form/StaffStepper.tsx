@@ -73,8 +73,8 @@ export default function StaffStepper({
         avatar: preselectedAvatar,
         currentOffice
       });
-    // resetStepper();
-    // onClose();
+    resetStepper();
+    onClose();
   };
 
   const firstStep = activeStepper == Steps.Names;

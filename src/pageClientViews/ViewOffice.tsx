@@ -46,8 +46,6 @@ export default function Office({ id }: IViewOffice) {
 
   const openDeleteStaff = () => {
     setIsOpenDeleteStaff(true);
-    closeInfoModal();
-    closeDeleteStaff();
   };
 
   const closeDeleteStaff = () => {
@@ -88,7 +86,7 @@ export default function Office({ id }: IViewOffice) {
 
   const handleDeleteStaffMember = () => {
     if (selectedStaffMember)
-      deleteStaffMember(Number(id), selectedStaffMember.id);
+      deleteStaffMember(String(id), selectedStaffMember.id);
   };
 
   const deleteStaffbtns: IActionBtn[] = [
