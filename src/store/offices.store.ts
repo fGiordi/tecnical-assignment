@@ -11,13 +11,13 @@ type OfficeStore = {
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
   deleteOffice: (id: number) => void;
-  addStaffMember: (officeId: number, staffMember: any) => void;
+  addStaffMember: (officeId: string, staffMember: any) => void;
   updateStaffMember: (
-    officeId: number,
-    staffMemberId: number,
+    officeId: string,
+    staffMemberId: string,
     staffMemberData: Partial<StaffMember>
   ) => void;
-  deleteStaffMember: (officeId: number, staffMemberId: number) => void;
+  deleteStaffMember: (officeId: number, staffMemberId: string) => void;
   findById: (id: number) => void;
   searchStaffMembers: (officeId: number, searchValue: string) => void;
   fetchAllOffices: () => void;
@@ -53,7 +53,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     }
   },
 
-  addStaffMember: (officeId, newStaffMember) => {
+  addStaffMember: async (officeId, newStaffMember) => {
     const allOffices = get().offices.map((office) =>
       office.id === officeId
         ? {
@@ -77,14 +77,20 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           }
         : office
     );
-    set({ offices: allOffices });
+    try {
+      await updateData('offices', String(officeId), allOffices);
+    } catch (error) {
+      // @ts-ignore
+      console.log('error adding staff', error.message);
+    }
   },
 
-  updateStaffMember: (officeId, staffMemberId, staffMemberData) => {
+  updateStaffMember: async (officeId, staffMemberId, staffMemberData) => {
     const allOffices = get().offices.map((office) => {
       if (office.id == officeId) {
         const updatedStaff = office.staff.map((staffMember) =>
-          staffMember.id === staffMemberId
+          // @ts-ignore
+          staffMember.id == staffMemberId
             ? { ...staffMember, ...staffMemberData }
             : staffMember
         );
@@ -97,9 +103,12 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       }
       return office;
     });
-    set({
-      offices: allOffices
-    });
+    try {
+      await updateData('offices', String(officeId), allOffices);
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating staff', error.message);
+    }
   },
 
   deleteStaffMember: (officeId, staffMemberId) => {

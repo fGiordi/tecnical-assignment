@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SearchIcon from '@/app/components/SVGS/SearchIcon.svg';
 import SearchInput from '@/app/components/Form/SearchInput';
 import OfficeCard from '@/app/components/Office/OfficeCard';
@@ -10,17 +10,21 @@ import { useOfficeStore } from '@/store/offices.store';
 import { StaffMember } from '@/types/office';
 import { IActionBtn } from '@/types/actionbtn';
 import ActionBtn from '@/app/components/Buttons/ActionBtn';
-import DeleteOfficeBtns from '@/app/components/Buttons/DeleteOfficeBtns';
 
 interface IViewOffice {
   id: string;
 }
 
 export default function Office({ id }: IViewOffice) {
-  // TODO to fetch from DB?
-  const { findById, office, offices, searchStaffMembers, deleteStaffMember } =
-    useOfficeStore();
-  const currentOffice = offices.find((office) => office.id === Number(id));
+  const {
+    office,
+    offices,
+    searchStaffMembers,
+    deleteStaffMember,
+    fetchAllOffices
+  } = useOfficeStore();
+
+  const currentOffice = offices.find((office) => office.id === String(id));
 
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
@@ -30,7 +34,6 @@ export default function Office({ id }: IViewOffice) {
 
   const [isOpenInfo, setIsOpenInfo] = useState(false);
   const [isOpenDeleteStaff, setIsOpenDeleteStaff] = useState(false);
-  // const [isOpenDeleteModal, isOpenDelete] = useState(false);
 
   const closeModal = () => {
     setIsOpenEditStaff(false);
@@ -71,7 +74,6 @@ export default function Office({ id }: IViewOffice) {
   const infoButtons: IActionBtn[] = [
     {
       name: 'Edit Staff Member',
-      // TODO: to come from DB
       action: openEditStaffModal,
       fill: true,
       danger: false
@@ -92,7 +94,6 @@ export default function Office({ id }: IViewOffice) {
   const deleteStaffbtns: IActionBtn[] = [
     {
       name: 'Delete Staff Member',
-      // TODO: to come from DB
       action: handleDeleteStaffMember,
       fill: true,
       danger: true
@@ -104,6 +105,10 @@ export default function Office({ id }: IViewOffice) {
       danger: true
     }
   ];
+
+  useEffect(() => {
+    fetchAllOffices();
+  }, []);
 
   return (
     <div>

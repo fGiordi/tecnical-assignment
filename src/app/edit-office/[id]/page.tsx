@@ -20,8 +20,6 @@ export default function EditOffice({ params }: { params: { id: string } }) {
   const currentOffice = offices.find(
     (office) => String(office.id) === params.id
   );
-  console.log('currentOffice', currentOffice);
-  console.log('offices', offices);
 
   const [preselectedColor, setPreSelectedColor] = useState<string | null>(
     currentOffice ? currentOffice?.officeColor : null

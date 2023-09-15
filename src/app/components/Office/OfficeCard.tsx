@@ -53,7 +53,9 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
               <h2 className="text-specno-gray-text tracking-[-0.02rem] leading-[30px] text-[24px] font-extrabold">
                 {office.officeName}
               </h2>
-              <Image src={EditBtn.src} width={24} height={24} alt="Phone" />
+              <Link href={`/edit-office/${office.id}`}>
+                <Image src={EditBtn.src} width={24} height={24} alt="Phone" />
+              </Link>
             </div>
             <div className="mt-3 flex items-start justify-start gap-3 border-b-[0.4px]  border-specno-dust-blue w-full pb-[9px]">
               <Image

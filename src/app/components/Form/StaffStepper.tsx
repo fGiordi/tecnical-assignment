@@ -31,8 +31,12 @@ export default function StaffStepper({
   const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
     useHelpersStore();
 
-  const { addStaffMember, office, updateStaffMember } = useOfficeStore();
-  const [step, setSteps] = useState(activeStepper);
+  const { addStaffMember, office, updateStaffMember, offices } =
+    useOfficeStore();
+
+  const currentOffice = offices.find(
+    (office) => String(office.id) === officeId
+  );
 
   const [firstName, setFirstName] = useState(staffMember?.firstName || '');
   const [lastName, setLastName] = useState(staffMember?.lastName || '');
@@ -51,7 +55,7 @@ export default function StaffStepper({
 
   const updateStaff = () => {
     if (preselectedAvatar && staffId)
-      updateStaffMember(Number(officeId), staffId, {
+      updateStaffMember(String(officeId), String(staffId), {
         id: staffId,
         firstName,
         lastName,
@@ -62,14 +66,15 @@ export default function StaffStepper({
   };
 
   const addStaff = () => {
-    if (preselectedAvatar)
-      addStaffMember(Number(officeId), {
+    if (currentOffice && preselectedAvatar)
+      addStaffMember(String(officeId), {
         firstName,
         lastName,
-        avatar: preselectedAvatar
+        avatar: preselectedAvatar,
+        currentOffice
       });
-    resetStepper();
-    onClose();
+    // resetStepper();
+    // onClose();
   };
 
   const firstStep = activeStepper == Steps.Names;
