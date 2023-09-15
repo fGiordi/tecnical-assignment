@@ -42,7 +42,7 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
         <div
           className={`flex ${
             moreInfo ? 'h-[300px]' : 'h-[150px]'
-          }  w-[12px] ${colorOnly} `}
+          }  w-[12px]  ${colorOnly} `}
           style={{
             borderRadius: '8px 0px 0px 8px'
           }}

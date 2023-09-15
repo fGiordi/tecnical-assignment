@@ -1,6 +1,7 @@
 import addData from '@/firebase/firestore/addData';
 import getDocuments from '@/firebase/firestore/getDocs';
 import updateData from '@/firebase/firestore/updateData';
+import deleteData from '@/firebase/firestore/deleteData';
 import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
 
@@ -26,18 +27,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,
   addOffice: async (newOffice) => {
-    const id = get().offices.length + 1;
-    set((state) => ({
-      offices: [
-        ...state.offices,
-        {
-          id: state.offices.length + 1,
-          // staff: [],
-          ...newOffice
-        }
-      ]
-    }));
-    await addData('offices', String(id), { ...newOffice });
+    await addData('offices', { ...newOffice });
   },
   findById: (id: number) => {
     const office = get().offices.find((office) => office.id === id);
@@ -46,7 +36,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     });
   },
   updateOffice: async (id, officeData) => {
-    console.log('officeData updating', officeData);
     try {
       await updateData('offices', String(id), { ...officeData });
     } catch (error) {
@@ -55,12 +44,13 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     }
   },
 
-  deleteOffice: (id) => {
-    const allOffices = get().offices.filter((office) => office.id !== id);
-
-    set({
-      offices: allOffices
-    });
+  deleteOffice: async (id) => {
+    try {
+      await deleteData('offices', String(id));
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating', error.message);
+    }
   },
 
   addStaffMember: (officeId, newStaffMember) => {
