@@ -19,7 +19,7 @@ type OfficeStore = {
   ) => void;
   deleteStaffMember: (officeId: string, staffMemberId: number) => void;
   findById: (id: number) => void;
-  searchStaffMembers: (officeId: number, searchValue: string) => void;
+  searchStaffMembers: (officeId: string, searchValue: string) => void;
   fetchAllOffices: () => void;
 };
 
@@ -133,9 +133,9 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       console.log('error updating staff', error.message);
     }
   },
-  searchStaffMembers: (officeId: number, searchValue: string) => {
+  searchStaffMembers: (officeId: string, searchValue: string) => {
     const allOffices = get().offices.map((office) => {
-      if (office.id === officeId) {
+      if (office.id == officeId) {
         // @ts-ignore
         const originalStaff = office.originalStaff || office.staff;
         // @ts-ignore
@@ -160,6 +160,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       }
       return office;
     });
+
+    console.log('searching', allOffices);
 
     set({
       offices: allOffices

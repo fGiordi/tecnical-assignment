@@ -13,10 +13,6 @@ export default function Office({ params }: { params: { id: string } }) {
   const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
     useHelpersStore();
 
-  const deleteOffice = () => {
-    // TODO: to delete office
-  };
-
   const closeModal = () => {
     setIsOpen(false);
     resetStepper();

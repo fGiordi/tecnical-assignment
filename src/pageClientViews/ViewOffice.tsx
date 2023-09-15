@@ -66,7 +66,7 @@ export default function Office({ id }: IViewOffice) {
   };
 
   const handleInputChange = (value: string) => {
-    searchStaffMembers(Number(id), value);
+    searchStaffMembers(String(id), value);
   };
 
   const infoButtons: IActionBtn[] = [
