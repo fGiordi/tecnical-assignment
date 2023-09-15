@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { useState } from 'react';
 import EditBtn from '@/app/components/SVGS/EditBtn.svg';
@@ -31,13 +32,15 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
 
   return (
     <div
-      className={`flex flex-col bg-white border-specno-light-blue rounded-[8px] ${
-        isOnViewOffice ? 'mt-6 ' : isOnLandingPage ? 'max-w-[342px] ' : ''
-      } w-full`}
+      className={`flex flex-col h-fit bg-white border-specno-light-blue rounded-[8px] ${
+        isOnViewOffice ? 'mt-6 w-full' : isOnLandingPage ? 'w-full ' : ''
+      } `}
     >
-      <div className="flex items-start gap-[22px]">
+      <div className="flex   items-start gap-[22px]">
         <div
-          className="flex h-full w-[12px] bg-specno-blue-gradient "
+          className={`flex ${
+            moreInfo ? 'h-[300px]' : 'h-[150px]'
+          }  w-[12px] bg-specno-blue-gradient`}
           style={{
             borderRadius: '8px 0px 0px 8px'
           }}
@@ -60,8 +63,8 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
                 alt="People Icon"
               />
               <h3 className="text-specno-gray-text font-normal text-[12px]">
-                <span className="font-bold">{office.maximumCapacity}</span>{' '}
-                Staff Members in Office
+                <span className="font-bold">{office.staff.length}</span> Staff
+                Members in Office
               </h3>
             </div>
           </Link>

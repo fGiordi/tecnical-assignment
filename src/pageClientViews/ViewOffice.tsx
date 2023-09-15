@@ -131,7 +131,7 @@ export default function Office({ id }: IViewOffice) {
           </h2>
           <div>
             <h3 className="font-normal text-[18px] leading-[24px] text-bold-black">
-              {office?.maximumCapacity || 0}
+              {office?.staff.length || 0}
             </h3>
           </div>
         </div>

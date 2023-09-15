@@ -13,7 +13,7 @@ export default function LandingOffices() {
           There are currently no offices added to the application
         </h2>
       )}
-      <div className="flex md:grid md:grid-cols-3 md:px-6  gap-7 w-full ">
+      <div className="grid grid-cols-1 px-5 md:grid-cols-2 lg:grid-cols-3 md:px-6  gap-7 w-full  ">
         {offices &&
           offices.map((office, index) => {
             return (
