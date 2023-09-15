@@ -28,6 +28,12 @@ Build a CRUD Office Application
 - [ ] Once on the office view, you can select the top pen icon to "edit" your office
 - [ ] From the edit view, you should be able to update the office and delete the office.
 - [ ] Once back to the office view, you can click on the same button at the bottom right corner of screen to add a new staff member.
+- [ ] Once clicked, you should be able to fill in a 2 step form that includes the names of the user and the avatar you would like to select for the staff member.
+- [ ] Once staff member is created, you should be able to edit staff member by clicking on the icon to the right of the staff member.
+- [ ] You are also able to delete the staff member from the edit view.
+- [ ] Once back in the office view, you can search for a specific user and the result will be filtered to match the name.
+- [ ] If no results appear on search, you can clear the search and search again or create a new staff member.
+- [ ] You can repeat the above a few times to test different offices to ensure that they only have their users displayed when you view the office.
 
 ## Deployed Link:
 
@@ -40,6 +46,7 @@ https://tecnical-assignment.vercel.app/
 - Next JS
 - CSS
 - Tailwind
+- Firebase
 
 # By:
 
