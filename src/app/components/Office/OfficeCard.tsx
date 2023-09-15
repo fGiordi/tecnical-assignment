@@ -26,6 +26,9 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
     setShowMoreInfo((preve) => !preve);
   };
 
+  const colorOnly = office.officeColor.substring(3);
+  console.log('color', colorOnly);
+
   const toggledOffice = id === office.id;
   const isOnViewOffice = view === 'office';
   const isOnLandingPage = view === 'all-offices';
@@ -40,7 +43,7 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
         <div
           className={`flex ${
             moreInfo ? 'h-[300px]' : 'h-[150px]'
-          }  w-[12px] bg-specno-blue-gradient`}
+          }  w-[12px] ${colorOnly} `}
           style={{
             borderRadius: '8px 0px 0px 8px'
           }}
