@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 export default function LandingOffices() {
   // TODO to fetch from DB?
   const { offices, fetchAllOffices } = useOfficeStore();
+  console.log('offices outside', offices);
 
   useEffect(() => {
     fetchAllOffices();

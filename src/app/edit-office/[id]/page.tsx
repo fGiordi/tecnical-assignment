@@ -18,7 +18,7 @@ export default function EditOffice({ params }: { params: { id: string } }) {
     useOfficeStore();
 
   const currentOffice = offices.find(
-    (office) => office.id === Number(params.id)
+    (office) => String(office.id) === params.id
   );
   console.log('currentOffice', currentOffice);
   console.log('offices', offices);

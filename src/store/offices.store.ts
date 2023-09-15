@@ -159,7 +159,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       if (data.result) {
         data.result.forEach((item) => {
           const officeData = item.data();
-          temptItems.push({ ...officeData, id: Number(item.id) });
+          temptItems.push({ ...officeData, id: String(item.id) });
         });
       }
       set({
