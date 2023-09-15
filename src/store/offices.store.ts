@@ -1,5 +1,6 @@
 import addData from '@/firebase/firestore/addData';
 import getDocuments from '@/firebase/firestore/getDocs';
+import updateData from '@/firebase/firestore/updateData';
 import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
 
@@ -44,13 +45,14 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       office: office
     });
   },
-  updateOffice: (id, officeData) => {
-    const allOffices = get().offices.map((office) =>
-      office.id === id ? { ...office, ...officeData } : office
-    );
-    set({
-      offices: allOffices
-    });
+  updateOffice: async (id, officeData) => {
+    console.log('officeData updating', officeData);
+    try {
+      await updateData('offices', String(id), { ...officeData });
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating', error.message);
+    }
   },
 
   deleteOffice: (id) => {
@@ -160,7 +162,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     });
   },
   fetchAllOffices: async () => {
-    console.log('running fetch');
     try {
       // @ts-ignore
       let temptItems = [];
@@ -168,7 +169,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       if (data.result) {
         data.result.forEach((item) => {
           const officeData = item.data();
-          temptItems.push({ ...officeData, id: item.id });
+          temptItems.push({ ...officeData, id: Number(item.id) });
         });
       }
       set({
@@ -176,7 +177,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
         offices: temptItems
       });
     } catch (err) {
-      console.log('error', err);
+      console.log('error fetching', err);
     }
   }
 }));
