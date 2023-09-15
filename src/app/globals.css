@@ -68,7 +68,7 @@
     #ff3e91 65%
   );
 }
-.office-space-normal-green {
+.office-space-green-normal {
   background: linear-gradient(
     to bottom,
     #a9f0d1 25%,
@@ -101,7 +101,7 @@
     #8338ec 25%,
     #8f4cee 20%,
     #a168f1 60%,
-    #a168f1 16%
+    #a168f1 45%
   );
 }
 .office-yellow-normal {

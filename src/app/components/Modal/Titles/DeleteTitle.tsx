@@ -10,7 +10,6 @@ interface DeleteTitle {
 export default function DeleteTitle({ title, onClose }: DeleteTitle) {
   return (
     <section className="flex items-start justify-start">
-      {/* TODO: make this into component? */}
       <button onClick={onClose}>
         <Image src={BackBtn.src} width={30} height={30} alt="Back Button" />
       </button>

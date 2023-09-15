@@ -6,7 +6,7 @@ export type StaffMember = {
 };
 
 export type Office = {
-  id: number;
+  id: any;
   officeName: string;
   physicalAddress: string;
   email: string;

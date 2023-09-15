@@ -1,10 +1,14 @@
 'use client';
 import OfficeCard from '@/app/components/Office/OfficeCard';
 import { useOfficeStore } from '@/store/offices.store';
+import { useEffect } from 'react';
 
 export default function LandingOffices() {
-  // TODO to fetch from DB?
-  const { offices } = useOfficeStore();
+  const { offices, fetchAllOffices } = useOfficeStore();
+
+  useEffect(() => {
+    fetchAllOffices();
+  }, []);
 
   return (
     <div>

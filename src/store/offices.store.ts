@@ -1,3 +1,7 @@
+import addData from '@/firebase/firestore/addData';
+import getDocuments from '@/firebase/firestore/getDocs';
+import updateData from '@/firebase/firestore/updateData';
+import deleteData from '@/firebase/firestore/deleteData';
 import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
 
@@ -7,31 +11,23 @@ type OfficeStore = {
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
   deleteOffice: (id: number) => void;
-  addStaffMember: (officeId: number, staffMember: any) => void;
+  addStaffMember: (officeId: string, staffMember: any) => void;
   updateStaffMember: (
-    officeId: number,
-    staffMemberId: number,
+    officeId: string,
+    staffMemberId: string,
     staffMemberData: Partial<StaffMember>
   ) => void;
-  deleteStaffMember: (officeId: number, staffMemberId: number) => void;
+  deleteStaffMember: (officeId: string, staffMemberId: number) => void;
   findById: (id: number) => void;
-  searchStaffMembers: (officeId: number, searchValue: string) => void;
+  searchStaffMembers: (officeId: string, searchValue: string) => void;
+  fetchAllOffices: () => void;
 };
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,
-  addOffice: (newOffice) => {
-    set((state) => ({
-      offices: [
-        ...state.offices,
-        {
-          id: state.offices.length + 1,
-          // staff: [],
-          ...newOffice
-        }
-      ]
-    }));
+  addOffice: async (newOffice) => {
+    await addData('offices', { ...newOffice });
   },
   findById: (id: number) => {
     const office = get().offices.find((office) => office.id === id);
@@ -39,24 +35,25 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       office: office
     });
   },
-  updateOffice: (id, officeData) => {
-    const allOffices = get().offices.map((office) =>
-      office.id === id ? { ...office, ...officeData } : office
-    );
-    set({
-      offices: allOffices
-    });
+  updateOffice: async (id, officeData) => {
+    try {
+      await updateData('offices', String(id), { ...officeData });
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating', error.message);
+    }
   },
 
-  deleteOffice: (id) => {
-    const allOffices = get().offices.filter((office) => office.id !== id);
-
-    set({
-      offices: allOffices
-    });
+  deleteOffice: async (id) => {
+    try {
+      await deleteData('offices', String(id));
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating', error.message);
+    }
   },
 
-  addStaffMember: (officeId, newStaffMember) => {
+  addStaffMember: async (officeId, newStaffMember) => {
     const allOffices = get().offices.map((office) =>
       office.id === officeId
         ? {
@@ -80,14 +77,20 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           }
         : office
     );
-    set({ offices: allOffices });
+    try {
+      await updateData('offices', String(officeId), allOffices);
+    } catch (error) {
+      // @ts-ignore
+      console.log('error adding staff', error.message);
+    }
   },
 
-  updateStaffMember: (officeId, staffMemberId, staffMemberData) => {
+  updateStaffMember: async (officeId, staffMemberId, staffMemberData) => {
     const allOffices = get().offices.map((office) => {
       if (office.id == officeId) {
         const updatedStaff = office.staff.map((staffMember) =>
-          staffMember.id === staffMemberId
+          // @ts-ignore
+          staffMember.id == staffMemberId
             ? { ...staffMember, ...staffMemberData }
             : staffMember
         );
@@ -100,31 +103,39 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       }
       return office;
     });
-    set({
-      offices: allOffices
-    });
+    try {
+      await updateData('offices', String(officeId), allOffices);
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating staff', error.message);
+    }
   },
 
-  deleteStaffMember: (officeId, staffMemberId) => {
+  deleteStaffMember: async (officeId, staffMemberId) => {
     const allOffices = get().offices.map((office) =>
       office.id === officeId
         ? {
             ...office,
             staff: office.staff.filter(
-              (staffMember) => staffMember.id !== staffMemberId
+              (staffMember) => staffMember.id != staffMemberId
             ),
             originalStaff: office.staff.filter(
-              (staffMember) => staffMember.id !== staffMemberId
+              (staffMember) => staffMember.id != staffMemberId
             )
           }
         : office
     );
-
-    set({ offices: allOffices });
+    console.log('deleting', allOffices);
+    try {
+      await updateData('offices', String(officeId), allOffices);
+    } catch (error) {
+      // @ts-ignore
+      console.log('error updating staff', error.message);
+    }
   },
-  searchStaffMembers: (officeId: number, searchValue: string) => {
+  searchStaffMembers: (officeId: string, searchValue: string) => {
     const allOffices = get().offices.map((office) => {
-      if (office.id === officeId) {
+      if (office.id == officeId) {
         // @ts-ignore
         const originalStaff = office.originalStaff || office.staff;
         // @ts-ignore
@@ -150,8 +161,29 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       return office;
     });
 
+    console.log('searching', allOffices);
+
     set({
       offices: allOffices
     });
+  },
+  fetchAllOffices: async () => {
+    try {
+      // @ts-ignore
+      let temptItems = [];
+      const data = await getDocuments('offices');
+      if (data.result) {
+        data.result.forEach((item) => {
+          const officeData = item.data();
+          temptItems.push({ ...officeData, id: String(item.id) });
+        });
+      }
+      set({
+        // @ts-ignore
+        offices: temptItems
+      });
+    } catch (err) {
+      console.log('error fetching', err);
+    }
   }
 }));

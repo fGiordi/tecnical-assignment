@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation';
 export default function NewOffice() {
   const router = useRouter();
 
-  // TODO to add form state libray and state mangement and DB connection
   const [preselectedColor, setPreSelectedColor] = useState<string | null>(null);
   const [officeName, setOfficeName] = useState('');
   const [physicalAddress, setPhysicalAddress] = useState('');
@@ -20,7 +19,6 @@ export default function NewOffice() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [maximumCapacity, setMaximumCapacity] = useState('');
 
-  // store info
   const { addOffice, offices } = useOfficeStore();
 
   const goHome = () => {
@@ -28,8 +26,6 @@ export default function NewOffice() {
   };
 
   const submitOffice = () => {
-    // TODO: to do form validation
-    // TODO to submit new office form
     if (preselectedColor)
       addOffice({
         officeName: officeName,
@@ -46,10 +42,7 @@ export default function NewOffice() {
     if (preselectedColor == null) {
       alert('Please select Office Color');
     }
-    // TODO to add toast?
   };
-
-  // TODO to setup the form schema and resolvers
 
   return (
     <div className="flex flex-col px-4">

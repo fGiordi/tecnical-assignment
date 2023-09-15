@@ -13,24 +13,10 @@ export default function Office({ params }: { params: { id: string } }) {
   const { activeStepper, increaseStepper, decreaseStepper, resetStepper } =
     useHelpersStore();
 
-  // TODO to add form state libray and state mangement and DB connection
-
-  // TODO to pull data from DB here
-
-  const EditOffice = () => {
-    // TODO to submit new office
-  };
-
-  const deleteOffice = () => {
-    // TODO: to delete office
-  };
-
   const closeModal = () => {
     setIsOpen(false);
     resetStepper();
   };
-
-  const addStaffMember = () => {};
 
   const openModal = () => {
     setIsOpen(true);

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ActionTitle from '@/app/components/ActionTitle';
 import Input from '@/app/components/Form/Input';
 import OfficeColor from '@/app/components/Office/OfficeColor';
@@ -14,10 +14,11 @@ import { useRouter } from 'next/navigation';
 export default function EditOffice({ params }: { params: { id: string } }) {
   const router = useRouter();
 
-  const { offices, updateOffice, findById, deleteOffice } = useOfficeStore();
+  const { offices, updateOffice, findById, deleteOffice, fetchAllOffices } =
+    useOfficeStore();
 
   const currentOffice = offices.find(
-    (office) => office.id === Number(params.id)
+    (office) => String(office.id) === params.id
   );
 
   const [preselectedColor, setPreSelectedColor] = useState<string | null>(
@@ -55,7 +56,12 @@ export default function EditOffice({ params }: { params: { id: string } }) {
         officeName,
         physicalAddress
       });
+    router.push('/');
   };
+
+  useEffect(() => {
+    fetchAllOffices();
+  }, []);
 
   return (
     <div className="flex flex-col px-4">
