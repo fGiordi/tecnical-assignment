@@ -24,10 +24,13 @@ export default async function UpdateData(
   try {
     const officeRef = doc(db, 'offices', String(id));
 
-    // @ts-ignore
-    data.map(async (data) => {
+    data.map(async (data: unknown) => {
       const res = await updateDoc(officeRef, {
+        // @ts-ignore
         originalStaff: data.originalStaff,
+
+        // @ts-ignore
+
         staff: data.originalStaff
       });
     });
