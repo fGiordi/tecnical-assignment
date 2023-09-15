@@ -1,3 +1,5 @@
+import addData from '@/firebase/firestore/addData';
+import getDocuments from '@/firebase/firestore/getDocs';
 import { Office, StaffMember } from '@/types/office';
 import { create } from 'zustand';
 
@@ -16,12 +18,14 @@ type OfficeStore = {
   deleteStaffMember: (officeId: number, staffMemberId: number) => void;
   findById: (id: number) => void;
   searchStaffMembers: (officeId: number, searchValue: string) => void;
+  fetchAllOffices: () => void;
 };
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,
-  addOffice: (newOffice) => {
+  addOffice: async (newOffice) => {
+    const id = get().offices.length + 1;
     set((state) => ({
       offices: [
         ...state.offices,
@@ -32,6 +36,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
         }
       ]
     }));
+    await addData('offices', String(id), { ...newOffice });
   },
   findById: (id: number) => {
     const office = get().offices.find((office) => office.id === id);
@@ -153,5 +158,25 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     set({
       offices: allOffices
     });
+  },
+  fetchAllOffices: async () => {
+    console.log('running fetch');
+    try {
+      // @ts-ignore
+      let temptItems = [];
+      const data = await getDocuments('offices');
+      if (data.result) {
+        data.result.forEach((item) => {
+          const officeData = item.data();
+          temptItems.push({ ...officeData, id: item.id });
+        });
+      }
+      set({
+        // @ts-ignore
+        offices: temptItems
+      });
+    } catch (err) {
+      console.log('error', err);
+    }
   }
 }));

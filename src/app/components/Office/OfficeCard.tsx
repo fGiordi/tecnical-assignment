@@ -26,8 +26,7 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
     setShowMoreInfo((preve) => !preve);
   };
 
-  const colorOnly = office.officeColor.substring(3);
-  console.log('color', colorOnly);
+  const colorOnly = office && office.officeColor.substring(3);
 
   const toggledOffice = id === office.id;
   const isOnViewOffice = view === 'office';
@@ -36,10 +35,10 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
   return (
     <div
       className={`flex flex-col h-fit bg-white border-specno-light-blue rounded-[8px] ${
-        isOnViewOffice ? 'mt-6 w-full' : isOnLandingPage ? 'w-full ' : ''
-      } `}
+        isOnViewOffice ? 'mt-6 ' : isOnLandingPage ? ' ' : ''
+      } w-full`}
     >
-      <div className="flex   items-start gap-[22px]">
+      <div className="flex items-start gap-[22px]">
         <div
           className={`flex ${
             moreInfo ? 'h-[300px]' : 'h-[150px]'
@@ -66,7 +65,7 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
                 alt="People Icon"
               />
               <h3 className="text-specno-gray-text font-normal text-[12px]">
-                <span className="font-bold">{office.staff.length}</span> Staff
+                <span className="font-bold">{office.staff?.length}</span> Staff
                 Members in Office
               </h3>
             </div>
