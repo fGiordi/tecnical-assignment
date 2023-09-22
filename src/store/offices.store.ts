@@ -29,7 +29,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   addOffice: async (newOffice) => {
     await addData('offices', { ...newOffice });
   },
-  findById: (id: number) => {
+  findById: (id: string) => {
     const office = get().offices.find((office) => office.id === id);
     set({
       office: office
