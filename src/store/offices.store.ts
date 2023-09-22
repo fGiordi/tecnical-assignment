@@ -10,7 +10,7 @@ type OfficeStore = {
   offices: Office[];
   addOffice: (office: Omit<Office, 'id'>) => void;
   updateOffice: (id: number, officeData: Partial<Office>) => void;
-  deleteOffice: (id: number) => void;
+  deleteOffice: (id: string) => void;
   addStaffMember: (officeId: string, staffMember: any) => void;
   updateStaffMember: (
     officeId: string,
@@ -18,7 +18,7 @@ type OfficeStore = {
     staffMemberData: Partial<StaffMember>
   ) => void;
   deleteStaffMember: (officeId: string, staffMemberId: number) => void;
-  findById: (id: number) => void;
+  findById: (id: string) => void;
   searchStaffMembers: (officeId: string, searchValue: string) => void;
   fetchAllOffices: () => void;
 };
@@ -37,7 +37,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
   updateOffice: async (id, officeData) => {
     try {
-      await updateData('offices', String(id), { ...officeData });
+      await updateData('offices', String(id), { ...officeData }, true);
     } catch (error) {
       // @ts-ignore
       console.log('error updating', error.message);

@@ -14,7 +14,8 @@ const db = getFirestore(firebase_app);
 export default async function UpdateData(
   collectionName: any,
   id: any,
-  data: any
+  data: any,
+  updatingOffice = false
 ) {
   // Variable to store the result of the operation
   let result = null;
@@ -23,17 +24,23 @@ export default async function UpdateData(
 
   try {
     const officeRef = doc(db, 'offices', String(id));
-
-    data.map(async (data: unknown) => {
-      const res = await updateDoc(officeRef, {
+    if (updatingOffice) {
+      result = await updateDoc(officeRef, {
         // @ts-ignore
-        originalStaff: data.originalStaff,
-
-        // @ts-ignore
-
-        staff: data.originalStaff
+        ...data
       });
-    });
+    } else {
+      data.map(async (data: unknown) => {
+        result = await updateDoc(officeRef, {
+          // @ts-ignore
+          originalStaff: data.originalStaff,
+
+          // @ts-ignore
+
+          staff: data.originalStaff
+        });
+      });
+    }
   } catch (e) {
     console.log('error on update doc', e);
     // Catch and store any error that occurs during the operation

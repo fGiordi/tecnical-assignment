@@ -28,7 +28,7 @@ export default function EditOffice({ params }: { params: { id: string } }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleDeleteOffice = () => {
-    deleteOffice(Number(params.id));
+    deleteOffice(params.id)
     router.push('/');
   };
 
