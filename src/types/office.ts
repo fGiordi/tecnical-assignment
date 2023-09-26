@@ -34,4 +34,5 @@ export type OfficeStore = {
   searchStaffMembers: (officeId: string, searchValue: string) => void;
   fetchAllOffices: () => void;
   isSearching: boolean
+  filteredStaff: StaffMember[]
 };

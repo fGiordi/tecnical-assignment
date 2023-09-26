@@ -23,12 +23,12 @@ export default function Office({ id }: IViewOffice) {
     deleteStaffMember,
     fetchAllOffices,
     findById,
-    isSearching
+    isSearching,
+    filteredStaff
   } = useOfficeStore();
 
-  const currentOffice = !isSearching
-    ? office
-    : offices.find((office) => office.id === String(id));
+  const currentOffice = office
+
 
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
@@ -142,7 +142,19 @@ export default function Office({ id }: IViewOffice) {
             </h3>
           </div>
         </div>
-        {currentOffice?.staff.map((staff) => {
+        {!isSearching && currentOffice?.staff.map((staff) => {
+          return (
+            <OfficeStaffMember
+              key={staff.id}
+              avatar={staff.avatar}
+              firstName={staff.firstName}
+              lastName={staff.lastName}
+              staffMember={staff}
+              editStaffAction={editStaffAction}
+            />
+          );
+        })}
+        {isSearching && filteredStaff.map((staff) => {
           return (
             <OfficeStaffMember
               key={staff.id}

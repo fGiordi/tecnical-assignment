@@ -71,9 +71,9 @@ export default function StaffStepper({
         firstName,
         lastName,
         avatar: preselectedAvatar,
-        currentOffice
       });
     resetStepper();
+
     onClose();
   };
 

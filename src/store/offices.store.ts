@@ -9,6 +9,7 @@ import { create } from 'zustand';
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,
+  filteredStaff: [],
   isSearching: false,
   addOffice: async (newOffice) => {
     await addData('offices', { ...newOffice });
@@ -18,7 +19,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
 
     set({
       // @ts-ignore
-      office: office.result
+      office: office.result,
+      isSearching: false
     });
   },
   updateOffice: async (id, officeData) => {
@@ -128,9 +130,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       console.log('error updating staff', error.message);
     }
   },
-  searchStaffMembers: (officeId: string, searchValue: string) => {
-    const allOffices = get().offices.map((office) => {
-      if (office.id == officeId) {
+  searchStaffMembers: async (officeId: string, searchValue: string) => {
+    const office = get().office
         // @ts-ignore
         const originalStaff = office.originalStaff || office.staff;
         // @ts-ignore
@@ -147,18 +148,10 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           );
         });
 
-        return {
-          ...office,
-          staff: searchValue ? filteredStaff : originalStaff,
-          originalStaff: originalStaff
-        };
-      }
-      return office;
-    });
-
     set({
-      offices: allOffices,
-      isSearching: true
+      offices: [],
+      isSearching: true,
+      filteredStaff: filteredStaff
     });
   },
   fetchAllOffices: async () => {
