@@ -97,25 +97,26 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
 
   updateStaffMember: async (officeId, staffMemberId, staffMemberData) => {
-    const allOffices = get().offices.map((office) => {
-      if (office.id == officeId) {
-        const updatedStaff = office.staff.map((staffMember) =>
-          // @ts-ignore
-          staffMember.id == staffMemberId
-            ? { ...staffMember, ...staffMemberData }
-            : staffMember
-        );
+    set({
+      isSearching: false
+    })
+    const office = await get().office
 
-        return {
-          ...office,
-          staff: updatedStaff,
-          originalStaff: updatedStaff
-        };
-      }
-      return office;
-    });
+    const updatedStaff = office?.staff.map((staffMember) =>
+    // @ts-ignore
+    staffMember.id == staffMemberId
+      ? { ...staffMember, ...staffMemberData }
+      : staffMember
+  );
+
+  const updatedOffice = {
+    ...office,
+    staff: updatedStaff,
+    originalStaff: updatedStaff
+  }
+    
     try {
-      await updateData('offices', String(officeId), allOffices);
+      await updateData('offices', String(officeId), updatedOffice, true);
       await get().findById(officeId)
 
     } catch (error) {
@@ -125,21 +126,22 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
 
   deleteStaffMember: async (officeId, staffMemberId) => {
-    const allOffices = get().offices.map((office) =>
-      office.id === officeId
-        ? {
-            ...office,
-            staff: office.staff.filter(
-              (staffMember) => staffMember.id != staffMemberId
-            ),
-            originalStaff: office.staff.filter(
-              (staffMember) => staffMember.id != staffMemberId
-            )
-          }
-        : office
-    );
+    set({
+      isSearching: false
+    })
+    const office = await get().office
+    const updatedOffice = {
+      ...office,
+      staff: office?.staff.filter(
+        (staffMember) => staffMember.id != staffMemberId
+      ),
+      originalStaff: office?.staff.filter(
+        (staffMember) => staffMember.id != staffMemberId
+      )
+    }
+  
     try {
-      await updateData('offices', String(officeId), allOffices);
+      await updateData('offices', String(officeId), updatedOffice, true);
       await get().findById(officeId)
 
     } catch (error) {
