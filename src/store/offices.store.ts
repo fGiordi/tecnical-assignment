@@ -149,10 +149,9 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       console.log('error updating staff', error.message);
     }
   },
-  searchStaffMembers: (officeId: string, searchValue: string) => {
+  searchStaffMembers:  (officeId: string, searchValue: string) => {
     const allOffices = get().offices.map((office) => {
       if (office.id == officeId) {
-        console.log('found office', office)
         // @ts-ignore
         const originalStaff = office.originalStaff || office.staff;
         // @ts-ignore
@@ -169,7 +168,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           );
         });
 
-        console.log('filteredStaff', filteredStaff, searchValue)
 
         return {
           ...office,
@@ -180,7 +178,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       return office;
     });
 
-    console.log('searching', allOffices);
 
     set({
       offices: allOffices,
