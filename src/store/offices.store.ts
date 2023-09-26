@@ -3,27 +3,10 @@ import getDocuments from '@/firebase/firestore/getDocs';
 import getDocument from '@/firebase/firestore/getData';
 import updateData from '@/firebase/firestore/updateData';
 import deleteData from '@/firebase/firestore/deleteData';
-import { Office, StaffMember } from '@/types/office';
+import { Office, StaffMember, OfficeStore } from '@/types/office';
 import { create } from 'zustand';
 
-type OfficeStore = {
-  office: Office | null;
-  offices: Office[];
-  addOffice: (office: Omit<Office, 'id'>) => void;
-  updateOffice: (id: number, officeData: Partial<Office>) => void;
-  deleteOffice: (id: string) => void;
-  addStaffMember: (officeId: string, staffMember: any) => void;
-  updateStaffMember: (
-    officeId: string,
-    staffMemberId: string,
-    staffMemberData: Partial<StaffMember>
-  ) => void;
-  deleteStaffMember: (officeId: string, staffMemberId: number) => void;
-  findById: (id: string) => void;
-  searchStaffMembers: (officeId: string, searchValue: string) => void;
-  fetchAllOffices: () => void;
-  isSearching: boolean
-};
+
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],

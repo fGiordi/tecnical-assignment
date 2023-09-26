@@ -23,7 +23,7 @@ export default function ActionFabBtn({ page, action }: IActionBtn) {
   };
 
   return (
-    <div className="flex items-end justify-end">
+    <div className="flex items-end justify-end px-8 md:px-2 inset-0 fixed md:relative">
       <button onClick={goToPage}>
         <Image src={Fab.src} width={50} height={50} alt="Action Page" />
       </button>
