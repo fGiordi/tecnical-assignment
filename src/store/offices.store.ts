@@ -106,7 +106,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     }
   },
 
-  deleteStaffMember: async (officeId, staffMemberId) => {
+  deleteStaffMember: async (officeId, staffMemberId, closeDeleteStaff) => {
     set({
       isSearching: false
     })
@@ -124,6 +124,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     try {
       await updateData('offices', String(officeId), updatedOffice, true);
       await get().findById(officeId)
+      closeDeleteStaff()
 
     } catch (error) {
       // @ts-ignore

@@ -89,7 +89,7 @@ export default function Office({ id }: IViewOffice) {
 
   const handleDeleteStaffMember = () => {
     if (selectedStaffMember)
-      deleteStaffMember(String(id), selectedStaffMember.id);
+      deleteStaffMember(String(id), selectedStaffMember.id, closeDeleteStaff);
   };
 
   const deleteStaffbtns: IActionBtn[] = [

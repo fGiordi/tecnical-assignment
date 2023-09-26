@@ -29,7 +29,7 @@ export type OfficeStore = {
     staffMemberId: string,
     staffMemberData: Partial<StaffMember>
   ) => void;
-  deleteStaffMember: (officeId: string, staffMemberId: number) => void;
+  deleteStaffMember: (officeId: string, staffMemberId: number, closeDeleteStaff: () => void) => void;
   findById: (id: string) => void;
   searchStaffMembers: (officeId: string, searchValue: string) => void;
   fetchAllOffices: () => void;
