@@ -30,7 +30,7 @@ export default async function UpdateData(
         ...data
       });
     } else {
-
+      console.log('data before patch', data)
       data.map(async (info: unknown) => {
         // @ts-ignore
         result = await updateDoc(doc(db, 'offices', String(info.id)), {

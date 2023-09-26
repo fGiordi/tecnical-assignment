@@ -22,11 +22,13 @@ type OfficeStore = {
   findById: (id: string) => void;
   searchStaffMembers: (officeId: string, searchValue: string) => void;
   fetchAllOffices: () => void;
+  isSearching: boolean
 };
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,
+  isSearching: false,
   addOffice: async (newOffice) => {
     await addData('offices', { ...newOffice });
   },
@@ -57,31 +59,36 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   },
 
   addStaffMember: async (officeId, newStaffMember) => {
-    const allOffices = get().offices.map((office) =>
-      office.id === officeId
-        ? {
-            ...office,
-            staff: [
-              ...office.staff,
-              {
-                // @ts-ignore
-                id: office.staff.length + 1,
-                ...newStaffMember
+    set({
+      isSearching: false
+    })
+    const office = get().office
+
+    const updatedInfo = {
+                ...office,
+                staff: [
+                  // @ts-ignore
+                  ...office.staff,
+                  {
+                    // @ts-ignore
+                    id: office.staff.length + 1,
+                    ...newStaffMember
+                  }
+                ],
+                originalStaff: [
+                  // @ts-ignore
+                  ...office.staff,
+                  {
+                    // @ts-ignore
+                    id: office.staff.length + 1,
+                    ...newStaffMember
+                  }
+                ]
               }
-            ],
-            originalStaff: [
-              ...office.staff,
-              {
-                // @ts-ignore
-                id: office.staff.length + 1,
-                ...newStaffMember
-              }
-            ]
-          }
-        : office
-    );
+
+    
     try {
-      await updateData('offices', String(officeId), allOffices);
+      await updateData('offices', String(officeId), updatedInfo, true);
       await get().findById(officeId)
     } catch (error) {
       // @ts-ignore
@@ -143,6 +150,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   searchStaffMembers: (officeId: string, searchValue: string) => {
     const allOffices = get().offices.map((office) => {
       if (office.id == officeId) {
+        console.log('found office', office)
         // @ts-ignore
         const originalStaff = office.originalStaff || office.staff;
         // @ts-ignore
@@ -159,6 +167,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           );
         });
 
+        console.log('filteredStaff', filteredStaff, searchValue)
+
         return {
           ...office,
           staff: searchValue ? filteredStaff : originalStaff,
@@ -171,7 +181,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     console.log('searching', allOffices);
 
     set({
-      offices: allOffices
+      offices: allOffices,
+      isSearching: true
     });
   },
   fetchAllOffices: async () => {

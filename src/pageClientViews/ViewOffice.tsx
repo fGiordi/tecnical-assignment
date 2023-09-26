@@ -22,13 +22,12 @@ export default function Office({ id }: IViewOffice) {
     searchStaffMembers,
     deleteStaffMember,
     fetchAllOffices,
-    findById
+    findById,
+    isSearching
   } = useOfficeStore();
 
-  const currentOffice = office
-  // offices.find((office) => office.id === String(id));
+  const currentOffice = !isSearching ? office : offices.find((office) => office.id === String(id));
 
-  console.log('office view', office)
 
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
