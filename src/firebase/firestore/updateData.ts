@@ -3,8 +3,6 @@ import {
   getFirestore,
   doc,
   updateDoc,
-  setDoc,
-  collection
 } from 'firebase/firestore';
 
 // Get the Firestore instance

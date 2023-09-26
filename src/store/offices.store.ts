@@ -3,7 +3,7 @@ import getDocuments from '@/firebase/firestore/getDocs';
 import getDocument from '@/firebase/firestore/getData';
 import updateData from '@/firebase/firestore/updateData';
 import deleteData from '@/firebase/firestore/deleteData';
-import { OfficeStore } from '@/types/office';
+import { Office, OfficeStore } from '@/types/office';
 import { create } from 'zustand';
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
@@ -15,8 +15,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     await addData('offices', { ...newOffice });
   },
   findById: async (id: string) => {
-    const office = await getDocument('offices', id);
-
+    const office = await getDocument('offices', id)
     set({
       // @ts-ignore
       office: office.result,
