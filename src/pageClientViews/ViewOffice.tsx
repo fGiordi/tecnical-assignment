@@ -26,8 +26,9 @@ export default function Office({ id }: IViewOffice) {
     isSearching
   } = useOfficeStore();
 
-  const currentOffice = !isSearching ? office : offices.find((office) => office.id === String(id));
-
+  const currentOffice = !isSearching
+    ? office
+    : offices.find((office) => office.id === String(id));
 
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
@@ -112,18 +113,14 @@ export default function Office({ id }: IViewOffice) {
   }, []);
 
   useEffect(() => {
-    findById(id)
+    findById(id);
   }, [id]);
 
   return (
     <div>
       <div className="flex gap-7 w-full">
         {currentOffice && (
-          <OfficeCard
-            office={currentOffice}
-            id={currentOffice.id}
-            view="office"
-          />
+          <OfficeCard office={currentOffice} id={id} view="office" />
         )}
       </div>
       <div className="w-full flex justify-end items-center relative">

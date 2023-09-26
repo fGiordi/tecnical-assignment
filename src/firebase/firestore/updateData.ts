@@ -12,8 +12,8 @@ const db = getFirestore(firebase_app);
 
 // Function to retrieve a Update from a Firestore collection
 export default async function UpdateData(
-  collectionName: any,
-  id: any,
+  collectionName: string,
+  id: string,
   data: any,
   updatingOffice = false
 ) {
@@ -30,15 +30,12 @@ export default async function UpdateData(
         ...data
       });
     } else {
-      console.log('data before patch', data)
       data.map(async (info: unknown) => {
         // @ts-ignore
         result = await updateDoc(doc(db, 'offices', String(info.id)), {
           // @ts-ignore
           originalStaff: info.originalStaff,
-
           // @ts-ignore
-
           staff: info.staff
         });
       });

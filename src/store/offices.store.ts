@@ -3,7 +3,7 @@ import getDocuments from '@/firebase/firestore/getDocs';
 import getDocument from '@/firebase/firestore/getData';
 import updateData from '@/firebase/firestore/updateData';
 import deleteData from '@/firebase/firestore/deleteData';
-import { Office, StaffMember, OfficeStore } from '@/types/office';
+import { OfficeStore } from '@/types/office';
 import { create } from 'zustand';
 
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
@@ -14,7 +14,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
     await addData('offices', { ...newOffice });
   },
   findById: async (id: string) => {
-    const office = await getDocument('offices', id)
+    const office = await getDocument('offices', id);
 
     set({
       // @ts-ignore
@@ -42,35 +42,34 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   addStaffMember: async (officeId, newStaffMember) => {
     set({
       isSearching: false
-    })
-    const office = get().office
+    });
+    const office = get().office;
 
     const updatedInfo = {
-                ...office,
-                staff: [
-                  // @ts-ignore
-                  ...office.staff,
-                  {
-                    // @ts-ignore
-                    id: office.staff.length + 1,
-                    ...newStaffMember
-                  }
-                ],
-                originalStaff: [
-                  // @ts-ignore
-                  ...office.staff,
-                  {
-                    // @ts-ignore
-                    id: office.staff.length + 1,
-                    ...newStaffMember
-                  }
-                ]
-              }
+      ...office,
+      staff: [
+        // @ts-ignore
+        ...office.staff,
+        {
+          // @ts-ignore
+          id: office.staff.length + 1,
+          ...newStaffMember
+        }
+      ],
+      originalStaff: [
+        // @ts-ignore
+        ...office.staff,
+        {
+          // @ts-ignore
+          id: office.staff.length + 1,
+          ...newStaffMember
+        }
+      ]
+    };
 
-    
     try {
       await updateData('offices', String(officeId), updatedInfo, true);
-      await get().findById(officeId)
+      await get().findById(officeId);
     } catch (error) {
       // @ts-ignore
       console.log('error adding staff', error.message);
@@ -80,26 +79,25 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   updateStaffMember: async (officeId, staffMemberId, staffMemberData) => {
     set({
       isSearching: false
-    })
-    const office = await get().office
+    });
+    const office = await get().office;
 
     const updatedStaff = office?.staff.map((staffMember) =>
-    // @ts-ignore
-    staffMember.id == staffMemberId
-      ? { ...staffMember, ...staffMemberData }
-      : staffMember
-  );
+      // @ts-ignore
+      staffMember.id == staffMemberId
+        ? { ...staffMember, ...staffMemberData }
+        : staffMember
+    );
 
-  const updatedOffice = {
-    ...office,
-    staff: updatedStaff,
-    originalStaff: updatedStaff
-  }
-    
+    const updatedOffice = {
+      ...office,
+      staff: updatedStaff,
+      originalStaff: updatedStaff
+    };
+
     try {
       await updateData('offices', String(officeId), updatedOffice, true);
-      await get().findById(officeId)
-
+      await get().findById(officeId);
     } catch (error) {
       // @ts-ignore
       console.log('error updating staff', error.message);
@@ -109,8 +107,8 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
   deleteStaffMember: async (officeId, staffMemberId, closeDeleteStaff) => {
     set({
       isSearching: false
-    })
-    const office = await get().office
+    });
+    const office = await get().office;
     const updatedOffice = {
       ...office,
       staff: office?.staff.filter(
@@ -119,19 +117,18 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       originalStaff: office?.staff.filter(
         (staffMember) => staffMember.id != staffMemberId
       )
-    }
-  
+    };
+
     try {
       await updateData('offices', String(officeId), updatedOffice, true);
-      await get().findById(officeId)
-      closeDeleteStaff()
-
+      await get().findById(officeId);
+      closeDeleteStaff();
     } catch (error) {
       // @ts-ignore
       console.log('error updating staff', error.message);
     }
   },
-  searchStaffMembers:  (officeId: string, searchValue: string) => {
+  searchStaffMembers: (officeId: string, searchValue: string) => {
     const allOffices = get().offices.map((office) => {
       if (office.id == officeId) {
         // @ts-ignore
@@ -150,7 +147,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
           );
         });
 
-
         return {
           ...office,
           staff: searchValue ? filteredStaff : originalStaff,
@@ -159,7 +155,6 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
       }
       return office;
     });
-
 
     set({
       offices: allOffices,

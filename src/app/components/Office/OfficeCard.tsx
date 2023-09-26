@@ -15,7 +15,7 @@ import { Office } from '@/types/office';
 
 interface IOfficeCard {
   office: Office;
-  id: number;
+  id: string;
   view: 'office' | 'all-offices';
 }
 
@@ -48,12 +48,12 @@ export default function OfficeCard({ office, id, view }: IOfficeCard) {
           }}
         />
         <div className="flex flex-col w-full justify-start items-start py-[18px] pr-4 ">
-          <Link href={`/office/${office.id}`} className="w-full">
+          <Link href={`/office/${id}`} className="w-full">
             <div className="flex justify-between w-full ">
               <h2 className="text-specno-gray-text tracking-[-0.02rem] leading-[30px] text-[24px] font-extrabold">
                 {office.officeName}
               </h2>
-              <Link href={`/edit-office/${office.id}`}>
+              <Link href={`/edit-office/${id}`}>
                 <Image src={EditBtn.src} width={24} height={24} alt="Phone" />
               </Link>
             </div>

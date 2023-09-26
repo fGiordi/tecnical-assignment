@@ -5,7 +5,7 @@ import { getFirestore, doc, deleteDoc } from 'firebase/firestore';
 const db = getFirestore(firebase_app);
 
 // Function to retrieve a document from a Firestore collection
-export default async function DeleteData(collectionName: any, id: any) {
+export default async function DeleteData(collectionName: string, id: string) {
   const docRef = doc(db, collectionName, String(id));
 
   // Variable to store the result of the operation
