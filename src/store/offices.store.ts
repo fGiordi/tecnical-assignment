@@ -6,8 +6,6 @@ import deleteData from '@/firebase/firestore/deleteData';
 import { Office, StaffMember, OfficeStore } from '@/types/office';
 import { create } from 'zustand';
 
-
-
 export const useOfficeStore = create<OfficeStore>((set, get) => ({
   offices: [],
   office: null,

@@ -15,7 +15,7 @@ export default function ActionTitle({ action, title }: IActionTitle) {
   const router = useRouter();
 
   const goToHome = () => {
-    router.push(`/`);
+    router.push('/');
     // Todo to go back? check action
   };
 
