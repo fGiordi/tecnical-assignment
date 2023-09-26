@@ -183,7 +183,7 @@ export default function Office({ id }: IViewOffice) {
       <Modal
         isOpen={isOpenDeleteStaff}
         onClose={closeDeleteStaff}
-        title="Are you sure you want to Staff Member?"
+        title="Are you sure you want to Delete Staff Member?"
         type="delete"
         body={
           <div className="flex flex-col items-center gap-[12px] justify-center mb-[78px]">

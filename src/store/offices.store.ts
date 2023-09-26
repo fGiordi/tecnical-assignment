@@ -78,6 +78,7 @@ export const useOfficeStore = create<OfficeStore>((set, get) => ({
         : office
     );
     try {
+      console.log('allOffices added staff', allOffices)
       await updateData('offices', String(officeId), allOffices);
     } catch (error) {
       // @ts-ignore

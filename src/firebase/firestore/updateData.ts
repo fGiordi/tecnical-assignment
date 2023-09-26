@@ -30,14 +30,16 @@ export default async function UpdateData(
         ...data
       });
     } else {
-      data.map(async (data: unknown) => {
-        result = await updateDoc(officeRef, {
+
+      data.map(async (info: unknown) => {
+        // @ts-ignore
+        result = await updateDoc(doc(db, 'offices', String(info.id)), {
           // @ts-ignore
-          originalStaff: data.originalStaff,
+          originalStaff: info.originalStaff,
 
           // @ts-ignore
 
-          staff: data.originalStaff
+          staff: info.staff
         });
       });
     }
@@ -46,7 +48,6 @@ export default async function UpdateData(
     // Catch and store any error that occurs during the operation
     error = e;
   }
-
   // Return the result and error as an object
   return { result, error };
 }
