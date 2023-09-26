@@ -15,7 +15,8 @@ export default async function getDocument(collection: any, id: any) {
 
   try {
     // Retrieve the document using the document reference
-    result = await getDoc(docRef);
+    const doc = await getDoc(docRef)
+    result = doc.data()
   } catch (e) {
     // Catch and store any error that occurs during the operation
     error = e;

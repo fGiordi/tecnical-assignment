@@ -21,10 +21,14 @@ export default function Office({ id }: IViewOffice) {
     offices,
     searchStaffMembers,
     deleteStaffMember,
-    fetchAllOffices
+    fetchAllOffices,
+    findById
   } = useOfficeStore();
 
-  const currentOffice = offices.find((office) => office.id === String(id));
+  const currentOffice = office
+  // offices.find((office) => office.id === String(id));
+
+  console.log('office view', office)
 
   const [selectedStaffMember, setSeletedStaffMember] = useState<
     StaffMember | undefined
@@ -107,6 +111,10 @@ export default function Office({ id }: IViewOffice) {
   useEffect(() => {
     fetchAllOffices();
   }, []);
+
+  useEffect(() => {
+    findById(id)
+  }, [id]);
 
   return (
     <div>
